@@ -718,9 +718,17 @@ function initActions() {
 function initGuestGenerator() {
   // Detect Base URL
   const baseUrlInput = document.getElementById('guestBaseUrl');
-  if (baseUrlInput && !baseUrlInput.value) {
-    const currentLoc = window.location.href.split('?')[0].replace('admin.html', 'index.html');
-    baseUrlInput.value = currentLoc;
+  if (baseUrlInput) {
+    if (!baseUrlInput.value || /\/admin(?:\.html)?\/?$/i.test(baseUrlInput.value)) {
+      baseUrlInput.value = resolveInvitationUrl(baseUrlInput.value || window.location.href);
+    }
+    baseUrlInput.addEventListener('input', () => {
+      generateSingleGuest();
+    });
+    baseUrlInput.addEventListener('change', () => {
+      baseUrlInput.value = resolveInvitationUrl(baseUrlInput.value);
+      generateSingleGuest();
+    });
   }
 
   // Single Guest Generator
@@ -1177,16 +1185,34 @@ function copyAllWaMessages() {
 }
 
 // ----------------------------------------------------------------------------
+// HELPER: Resolve base invitation URL to index.html (supports cleanUrls on Vercel)
+// ----------------------------------------------------------------------------
+function resolveInvitationUrl(inputUrl) {
+  let urlStr = (inputUrl || '').trim();
+  if (!urlStr) {
+    urlStr = window.location.href;
+  }
+  // Strip query string and hash
+  urlStr = urlStr.split('?')[0].split('#')[0];
+
+  // If URL ends in /admin or /admin.html or /admin/
+  if (/\/admin(?:\.html)?\/?$/i.test(urlStr)) {
+    urlStr = urlStr.replace(/\/admin(?:\.html)?\/?$/i, '/index.html');
+  } else if (!urlStr.endsWith('/index.html')) {
+    urlStr = urlStr.replace(/\/+$/, '') + '/index.html';
+  }
+  return urlStr;
+}
+
+// ----------------------------------------------------------------------------
 // HELPER: Get the base invitation URL
 // ----------------------------------------------------------------------------
 function getBaseInvitationUrl() {
   const inputEl = document.getElementById('guestBaseUrl');
   if (inputEl && inputEl.value.trim()) {
-    return inputEl.value.trim().replace(/\/$/, '');
+    return resolveInvitationUrl(inputEl.value);
   }
-  // Auto-detect from current page
-  const loc = window.location.href.split('?')[0].replace(/\/admin\.html.*$/, '');
-  return loc.replace(/\/$/, '') + '/index.html';
+  return resolveInvitationUrl(window.location.href);
 }
 
 // ----------------------------------------------------------------------------
