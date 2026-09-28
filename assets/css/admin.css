@@ -625,3 +625,244 @@ body.admin-body {
   display: none;
 }
 
+/* ==========================================================================
+   ADMIN AUTH / LOCK SCREEN STYLES
+   ========================================================================== */
+body.admin-locked {
+  overflow: hidden;
+}
+
+.admin-lock-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(18, 13, 9, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.admin-lock-card {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  background: var(--admin-card-bg);
+  border: 1.5px solid var(--color-gold-prada);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 40px rgba(184, 142, 75, 0.2);
+  padding: 36px 30px;
+  text-align: center;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(184, 142, 75, 0.15) 0%, transparent 70%),
+    url('../images/batik-kawung.svg');
+  background-size: auto, 120px;
+}
+
+.admin-lock-icon-wrap {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.admin-lock-gunungan {
+  width: 64px;
+  height: 85px;
+  filter: drop-shadow(0 4px 12px var(--color-gold-glow));
+}
+
+.admin-lock-badge {
+  position: absolute;
+  bottom: -4px;
+  right: -6px;
+  width: 32px;
+  height: 32px;
+  background: var(--admin-bg);
+  border: 1.5px solid var(--color-gold-prada);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.admin-lock-badge svg {
+  width: 16px;
+  height: 16px;
+  fill: var(--color-gold-light);
+}
+
+.admin-lock-title {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  color: var(--color-gold-light);
+  letter-spacing: 0.04em;
+  margin: 0 0 4px;
+}
+
+.admin-lock-subtitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--admin-text-main);
+  margin-bottom: 8px;
+}
+
+.admin-lock-desc {
+  font-size: 0.8rem;
+  color: var(--admin-text-muted);
+  line-height: 1.5;
+  margin: 0 0 24px;
+}
+
+.admin-lock-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.admin-lock-input-group {
+  position: relative;
+  width: 100%;
+}
+
+.admin-lock-input {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--admin-input-bg);
+  border: 1.5px solid var(--admin-input-border);
+  border-radius: var(--radius-sm);
+  color: var(--admin-text-main);
+  font-size: 0.95rem;
+  padding: 12px 44px 12px 16px;
+  text-align: center;
+  letter-spacing: 0.08em;
+  transition: all var(--transition-fast);
+}
+
+.admin-lock-input:focus {
+  outline: none;
+  border-color: var(--color-gold-light);
+  box-shadow: 0 0 16px var(--color-gold-glow);
+}
+
+.admin-lock-input.has-error {
+  border-color: var(--admin-danger);
+  box-shadow: 0 0 12px rgba(211, 69, 56, 0.4);
+}
+
+.admin-lock-eye-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--admin-text-muted);
+  transition: color 0.2s;
+}
+
+.admin-lock-eye-btn:hover {
+  color: var(--color-gold-light);
+}
+
+.admin-lock-eye-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+.admin-lock-error {
+  background: rgba(211, 69, 56, 0.15);
+  border: 1px solid rgba(211, 69, 56, 0.4);
+  color: #FF8E85;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+}
+
+.admin-lock-submit-btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 0.95rem;
+  justify-content: center;
+}
+
+.admin-lock-footer-links {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 0.75rem;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.admin-lock-back-link {
+  color: var(--color-gold-light);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.admin-lock-back-link:hover {
+  text-decoration: underline;
+}
+
+.admin-lock-hint {
+  color: var(--admin-text-muted);
+  font-size: 0.72rem;
+}
+
+.admin-lock-hint code {
+  background: rgba(184, 142, 75, 0.2);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--color-gold-light);
+  font-weight: 600;
+}
+
+@keyframes shakeAnim {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+.shake-anim {
+  animation: shakeAnim 0.45s ease;
+}
+
+/* Modal Window */
+.adm-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.adm-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(8px);
+}
+
+.adm-modal-content {
+  position: relative;
+  width: 100%;
+  background: var(--admin-card-bg);
+  border: 1.5px solid var(--color-gold-prada);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8);
+}
+
+

@@ -145,8 +145,161 @@ const DEFAULT_ADMIN_CONFIG = {
 
 let currentConfig = null;
 
+// ----------------------------------------------------------------------------
+// SECURITY / ADMIN AUTHENTICATION
+// ----------------------------------------------------------------------------
+const ADMIN_AUTH_KEY = 'pawiwahan_admin_auth';
+const ADMIN_PASS_KEY = 'pawiwahan_admin_password';
+const DEFAULT_ADMIN_PASSWORD = 'admin123';
+
+function getAdminPassword() {
+  return localStorage.getItem(ADMIN_PASS_KEY) || DEFAULT_ADMIN_PASSWORD;
+}
+
+function setAdminPassword(newPass) {
+  localStorage.setItem(ADMIN_PASS_KEY, newPass);
+}
+
+function isSessionAuthenticated() {
+  return sessionStorage.getItem(ADMIN_AUTH_KEY) === 'true';
+}
+
+function initAdminAuth() {
+  const overlay = document.getElementById('adminLockOverlay');
+  const lockForm = document.getElementById('adminLockForm');
+  const passInput = document.getElementById('adminPasswordInput');
+  const errorEl = document.getElementById('adminLockError');
+  const eyeBtn = document.getElementById('btnTogglePasswordView');
+  const btnLock = document.getElementById('btnLockAdmin');
+  const btnOpenChangePass = document.getElementById('btnOpenChangePass');
+  const modalChangePass = document.getElementById('modalChangePass');
+  const btnCancelChangePass = document.getElementById('btnCancelChangePass');
+  const modalChangePassBackdrop = document.getElementById('modalChangePassBackdrop');
+  const btnSaveNewPass = document.getElementById('btnSaveNewPass');
+
+  if (!overlay) return;
+
+  // Check existing session
+  if (isSessionAuthenticated()) {
+    overlay.style.display = 'none';
+    document.body.classList.remove('admin-locked');
+  } else {
+    overlay.style.display = 'flex';
+    document.body.classList.add('admin-locked');
+    setTimeout(() => passInput?.focus(), 250);
+  }
+
+  // Handle Unlock
+  lockForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const entered = (passInput?.value || '').trim();
+    const currentPass = getAdminPassword();
+
+    if (entered === currentPass) {
+      sessionStorage.setItem(ADMIN_AUTH_KEY, 'true');
+      if (errorEl) errorEl.style.display = 'none';
+      passInput.classList.remove('has-error');
+
+      // Smooth fade out
+      overlay.style.opacity = '0';
+      overlay.style.pointerEvents = 'none';
+      overlay.style.transition = 'opacity 0.35s ease';
+      setTimeout(() => {
+        overlay.style.display = 'none';
+        document.body.classList.remove('admin-locked');
+      }, 350);
+
+      showToast('🔓 Sugeng rawuh! Akses dasbor kasil kabikak.');
+    } else {
+      if (errorEl) {
+        errorEl.textContent = '⚠️ Sandi klentu! (Kata sandi salah). Silakan coba lagi.';
+        errorEl.style.display = 'block';
+      }
+      passInput?.classList.add('has-error', 'shake-anim');
+      setTimeout(() => passInput?.classList.remove('shake-anim'), 500);
+      passInput?.select();
+    }
+  });
+
+  // Toggle eye show/hide password
+  eyeBtn?.addEventListener('click', () => {
+    if (!passInput) return;
+    const isPass = passInput.type === 'password';
+    passInput.type = isPass ? 'text' : 'password';
+    eyeBtn.setAttribute('title', isPass ? 'Sembunyikan kata sandi' : 'Lihat kata sandi');
+  });
+
+  // Lock button in navbar
+  btnLock?.addEventListener('click', () => {
+    sessionStorage.removeItem(ADMIN_AUTH_KEY);
+    if (passInput) passInput.value = '';
+    if (errorEl) errorEl.style.display = 'none';
+    overlay.style.display = 'flex';
+    overlay.style.opacity = '1';
+    overlay.style.pointerEvents = 'all';
+    document.body.classList.add('admin-locked');
+    setTimeout(() => passInput?.focus(), 200);
+    showToast('🔒 Dasbor kasil dipunkunci.');
+  });
+
+  // Change Password Modal
+  btnOpenChangePass?.addEventListener('click', () => {
+    if (modalChangePass) {
+      modalChangePass.style.display = 'flex';
+      const cur = document.getElementById('currentPassInput');
+      const nw = document.getElementById('newPassInput');
+      const conf = document.getElementById('confirmNewPassInput');
+      if (cur) cur.value = '';
+      if (nw) nw.value = '';
+      if (conf) conf.value = '';
+      const err = document.getElementById('changePassError');
+      if (err) err.style.display = 'none';
+      setTimeout(() => cur?.focus(), 200);
+    }
+  });
+
+  const closeChangePassModal = () => {
+    if (modalChangePass) modalChangePass.style.display = 'none';
+  };
+  btnCancelChangePass?.addEventListener('click', closeChangePassModal);
+  modalChangePassBackdrop?.addEventListener('click', closeChangePassModal);
+
+  // Save New Password
+  btnSaveNewPass?.addEventListener('click', () => {
+    const curVal = (document.getElementById('currentPassInput')?.value || '').trim();
+    const newVal = (document.getElementById('newPassInput')?.value || '').trim();
+    const confVal = (document.getElementById('confirmNewPassInput')?.value || '').trim();
+    const errBox = document.getElementById('changePassError');
+
+    const showModalErr = (msg) => {
+      if (errBox) {
+        errBox.textContent = msg;
+        errBox.style.display = 'block';
+      }
+    };
+
+    if (curVal !== getAdminPassword()) {
+      showModalErr('⚠️ Kata sandi saat ini tidak cocok.');
+      return;
+    }
+    if (newVal.length < 4) {
+      showModalErr('⚠️ Kata sandi baru minimal 4 karakter.');
+      return;
+    }
+    if (newVal !== confVal) {
+      showModalErr('⚠️ Konfirmasi sandi baru tidak sama.');
+      return;
+    }
+
+    setAdminPassword(newVal);
+    closeChangePassModal();
+    showToast('🔑 Kata sandi admin berhasil diperbarui!');
+  });
+}
+
 // Initialize on load
 document.addEventListener('DOMContentLoaded', async () => {
+  initAdminAuth();
   initTabs();
   await loadInitialConfig();
   initFormBindings();

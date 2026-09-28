@@ -15,6 +15,45 @@
 <body class="admin-body">
 
   <!-- ========================================================================
+       SECURITY / LOCK SCREEN OVERLAY
+       ======================================================================== -->
+  <div id="adminLockOverlay" class="admin-lock-overlay" role="dialog" aria-modal="true" aria-label="Kunci Akses Admin">
+    <div class="admin-lock-card">
+      <div class="admin-lock-icon-wrap">
+        <img src="assets/images/gunungan.svg" alt="Gunungan Wayang" class="admin-lock-gunungan">
+        <div class="admin-lock-badge">
+          <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+        </div>
+      </div>
+
+      <h2 class="admin-lock-title">Pawiwahan Ageng</h2>
+      <div class="admin-lock-subtitle">Kunci Akses Dasbor Pengaturan</div>
+      <p class="admin-lock-desc">Mangga lebetaken sandi kagem mbikak dasbor pamaréntahan sedhahan punika.</p>
+
+      <form id="adminLockForm" class="admin-lock-form" onsubmit="return false;">
+        <div class="admin-lock-input-group">
+          <input type="password" id="adminPasswordInput" class="admin-lock-input" placeholder="Masukkan kata sandi..." autocomplete="current-password" required>
+          <button type="button" id="btnTogglePasswordView" class="admin-lock-eye-btn" title="Lihat kata sandi">
+            <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+          </button>
+        </div>
+
+        <div id="adminLockError" class="admin-lock-error" style="display: none;"></div>
+
+        <button type="submit" id="btnUnlockAdmin" class="adm-btn adm-btn-primary admin-lock-submit-btn">
+          <svg viewBox="0 0 24 24"><path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6h1.9c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm0 12H6V10h12v10z"/></svg>
+          Buka Kunci Akses
+        </button>
+
+        <div class="admin-lock-footer-links">
+          <a href="index.html" class="admin-lock-back-link">&larr; Wangsul dhateng Undangan</a>
+          <span class="admin-lock-hint">Sandi bawaan: <code>admin123</code></span>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ========================================================================
        TOP NAVBAR / ACTION BAR
        ======================================================================== -->
   <header class="admin-navbar">
@@ -55,6 +94,16 @@
       <button id="btnResetConfig" type="button" class="adm-btn adm-btn-danger" title="Kembalikan semua setelan ke bawaan awal">
         <svg viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
         Reset Default
+      </button>
+
+      <button id="btnOpenChangePass" type="button" class="adm-btn adm-btn-outline" title="Ganti Sandi Administrator">
+        <svg viewBox="0 0 24 24"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+        Ganti Sandi
+      </button>
+
+      <button id="btnLockAdmin" type="button" class="adm-btn adm-btn-outline" style="border-color: rgba(211,69,56,0.4); color: #FF8E85;" title="Kunci Dasbor &amp; Keluar">
+        <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+        Kunci
       </button>
 
       <input type="file" id="admFileInput" class="adm-hidden-file" accept=".json">
@@ -799,6 +848,38 @@
   <div id="admToast" class="adm-toast" role="alert">
     <svg viewBox="0 0 24 24" style="width:20px; height:20px; fill:var(--color-gold-light);"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
     <span id="admToastText">Perubahan berhasil disimpan!</span>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: GANTI KATA SANDI ADMIN
+       ======================================================================== -->
+  <div id="modalChangePass" class="adm-modal" style="display: none;">
+    <div class="adm-modal-backdrop" id="modalChangePassBackdrop"></div>
+    <div class="adm-modal-content" style="max-width: 440px;">
+      <div class="admin-card-header" style="margin-bottom: 16px;">
+        <h2 class="admin-card-title">
+          <svg viewBox="0 0 24 24"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+          Ubah Kata Sandi Admin
+        </h2>
+      </div>
+      <div class="adm-form-group">
+        <label class="adm-label">Kata Sandi Saat Ini</label>
+        <input type="password" id="currentPassInput" class="adm-input" placeholder="Masukkan sandi saat ini">
+      </div>
+      <div class="adm-form-group">
+        <label class="adm-label">Kata Sandi Baru</label>
+        <input type="password" id="newPassInput" class="adm-input" placeholder="Minimal 4 karakter">
+      </div>
+      <div class="adm-form-group">
+        <label class="adm-label">Ulangi Kata Sandi Baru</label>
+        <input type="password" id="confirmNewPassInput" class="adm-input" placeholder="Ketik ulang sandi baru">
+      </div>
+      <div id="changePassError" class="admin-lock-error" style="display: none; margin-bottom: 14px;"></div>
+      <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px;">
+        <button type="button" id="btnCancelChangePass" class="adm-btn adm-btn-outline">Batal</button>
+        <button type="button" id="btnSaveNewPass" class="adm-btn adm-btn-primary">Simpan Sandi Baru</button>
+      </div>
+    </div>
   </div>
 
   <!-- Scripts -->
