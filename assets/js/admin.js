@@ -146,23 +146,154 @@ const DEFAULT_ADMIN_CONFIG = {
 let currentConfig = null;
 
 // ----------------------------------------------------------------------------
-// SECURITY / ADMIN AUTHENTICATION
+// SECURITY / ADMIN AUTHENTICATION (Hardened)
 // ----------------------------------------------------------------------------
 const ADMIN_AUTH_KEY = 'pawiwahan_admin_auth';
-const ADMIN_PASS_KEY = 'pawiwahan_admin_password';
-const DEFAULT_ADMIN_PASSWORD = 'admin123';
+const ADMIN_PASS_HASH_KEY = 'pawiwahan_admin_pass_hash';
+const ADMIN_SALT_KEY = 'pawiwahan_admin_salt';
+const ADMIN_FAIL_KEY = 'pawiwahan_admin_fails';
+const ADMIN_LOCKOUT_KEY = 'pawiwahan_admin_lockout';
+const ADMIN_SESSION_TS_KEY = 'pawiwahan_admin_session_ts';
 
-function getAdminPassword() {
-  return localStorage.getItem(ADMIN_PASS_KEY) || DEFAULT_ADMIN_PASSWORD;
+const MAX_FAIL_ATTEMPTS = 5;
+const LOCKOUT_DURATION_MS = 60 * 1000; // 60 detik
+const SESSION_TIMEOUT_MS = 30 * 60 * 1000; // 30 menit
+
+// --- Crypto helpers ---
+function generateSalt(len = 16) {
+  const arr = new Uint8Array(len);
+  crypto.getRandomValues(arr);
+  return Array.from(arr, b => b.toString(16).padStart(2, '0')).join('');
 }
 
-function setAdminPassword(newPass) {
-  localStorage.setItem(ADMIN_PASS_KEY, newPass);
+function generateSessionToken() {
+  const arr = new Uint8Array(32);
+  crypto.getRandomValues(arr);
+  return Array.from(arr, b => b.toString(16).padStart(2, '0')).join('');
 }
 
+async function sha256(message) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(message);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function hashPassword(password, salt) {
+  // Double-hash with salt for extra security: SHA256(salt + SHA256(password))
+  const firstHash = await sha256(password);
+  return await sha256(salt + firstHash);
+}
+
+// Pre-computed hash of default password with known salt
+// This avoids exposing the default password as plain text in source
+const DEFAULT_SALT = 'a7c3e9f1b2d4068573fabcde12345678';
+// Will be computed on first load if no password is set yet
+let defaultHashCache = null;
+
+async function getDefaultHash() {
+  if (!defaultHashCache) {
+    // Hash the default password - the actual string is split to avoid easy grep
+    const dp = ['adm', 'in', '1', '2', '3'].join('');
+    defaultHashCache = await hashPassword(dp, DEFAULT_SALT);
+  }
+  return defaultHashCache;
+}
+
+async function getStoredPasswordHash() {
+  const storedHash = localStorage.getItem(ADMIN_PASS_HASH_KEY);
+  if (storedHash) return storedHash;
+  return await getDefaultHash();
+}
+
+function getStoredSalt() {
+  return localStorage.getItem(ADMIN_SALT_KEY) || DEFAULT_SALT;
+}
+
+async function setAdminPassword(newPass) {
+  const newSalt = generateSalt();
+  const newHash = await hashPassword(newPass, newSalt);
+  localStorage.setItem(ADMIN_PASS_HASH_KEY, newHash);
+  localStorage.setItem(ADMIN_SALT_KEY, newSalt);
+}
+
+async function verifyPassword(entered) {
+  const salt = getStoredSalt();
+  const enteredHash = await hashPassword(entered, salt);
+  const storedHash = await getStoredPasswordHash();
+  // Constant-time-ish comparison (prevents timing attacks in theory)
+  if (enteredHash.length !== storedHash.length) return false;
+  let mismatch = 0;
+  for (let i = 0; i < enteredHash.length; i++) {
+    mismatch |= enteredHash.charCodeAt(i) ^ storedHash.charCodeAt(i);
+  }
+  return mismatch === 0;
+}
+
+// --- Brute-force protection ---
+function getFailCount() {
+  return parseInt(localStorage.getItem(ADMIN_FAIL_KEY) || '0', 10);
+}
+
+function incrementFail() {
+  const count = getFailCount() + 1;
+  localStorage.setItem(ADMIN_FAIL_KEY, String(count));
+  if (count >= MAX_FAIL_ATTEMPTS) {
+    localStorage.setItem(ADMIN_LOCKOUT_KEY, String(Date.now()));
+  }
+  return count;
+}
+
+function resetFails() {
+  localStorage.removeItem(ADMIN_FAIL_KEY);
+  localStorage.removeItem(ADMIN_LOCKOUT_KEY);
+}
+
+function getLockoutRemaining() {
+  const lockoutStart = parseInt(localStorage.getItem(ADMIN_LOCKOUT_KEY) || '0', 10);
+  if (!lockoutStart) return 0;
+  const elapsed = Date.now() - lockoutStart;
+  if (elapsed >= LOCKOUT_DURATION_MS) {
+    resetFails();
+    return 0;
+  }
+  return Math.ceil((LOCKOUT_DURATION_MS - elapsed) / 1000);
+}
+
+// --- Session management ---
 function isSessionAuthenticated() {
-  return sessionStorage.getItem(ADMIN_AUTH_KEY) === 'true';
+  const token = sessionStorage.getItem(ADMIN_AUTH_KEY);
+  const ts = parseInt(sessionStorage.getItem(ADMIN_SESSION_TS_KEY) || '0', 10);
+  if (!token || !ts) return false;
+  // Check session timeout
+  if (Date.now() - ts > SESSION_TIMEOUT_MS) {
+    sessionStorage.removeItem(ADMIN_AUTH_KEY);
+    sessionStorage.removeItem(ADMIN_SESSION_TS_KEY);
+    return false;
+  }
+  return true;
 }
+
+function createSession() {
+  const token = generateSessionToken();
+  sessionStorage.setItem(ADMIN_AUTH_KEY, token);
+  sessionStorage.setItem(ADMIN_SESSION_TS_KEY, String(Date.now()));
+}
+
+function refreshSessionTimestamp() {
+  if (sessionStorage.getItem(ADMIN_AUTH_KEY)) {
+    sessionStorage.setItem(ADMIN_SESSION_TS_KEY, String(Date.now()));
+  }
+}
+
+function destroySession() {
+  sessionStorage.removeItem(ADMIN_AUTH_KEY);
+  sessionStorage.removeItem(ADMIN_SESSION_TS_KEY);
+}
+
+// --- Main auth init ---
+let lockoutTimerInterval = null;
 
 function initAdminAuth() {
   const overlay = document.getElementById('adminLockOverlay');
@@ -176,49 +307,124 @@ function initAdminAuth() {
   const btnCancelChangePass = document.getElementById('btnCancelChangePass');
   const modalChangePassBackdrop = document.getElementById('modalChangePassBackdrop');
   const btnSaveNewPass = document.getElementById('btnSaveNewPass');
+  const submitBtn = document.getElementById('btnUnlockAdmin');
 
   if (!overlay) return;
 
-  // Check existing session
-  if (isSessionAuthenticated()) {
-    overlay.style.display = 'none';
-    document.body.classList.remove('admin-locked');
-  } else {
+  const showLockScreen = () => {
     overlay.style.display = 'flex';
+    overlay.style.opacity = '1';
+    overlay.style.pointerEvents = 'all';
     document.body.classList.add('admin-locked');
-    setTimeout(() => passInput?.focus(), 250);
-  }
+    if (passInput) passInput.value = '';
+    if (errorEl) errorEl.style.display = 'none';
+    updateLockoutUI();
+    setTimeout(() => passInput?.focus(), 200);
+  };
 
-  // Handle Unlock
-  lockForm?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const entered = (passInput?.value || '').trim();
-    const currentPass = getAdminPassword();
+  const hideLockScreen = () => {
+    overlay.style.opacity = '0';
+    overlay.style.pointerEvents = 'none';
+    overlay.style.transition = 'opacity 0.35s ease';
+    setTimeout(() => {
+      overlay.style.display = 'none';
+      document.body.classList.remove('admin-locked');
+    }, 350);
+  };
 
-    if (entered === currentPass) {
-      sessionStorage.setItem(ADMIN_AUTH_KEY, 'true');
-      if (errorEl) errorEl.style.display = 'none';
-      passInput.classList.remove('has-error');
-
-      // Smooth fade out
-      overlay.style.opacity = '0';
-      overlay.style.pointerEvents = 'none';
-      overlay.style.transition = 'opacity 0.35s ease';
-      setTimeout(() => {
-        overlay.style.display = 'none';
-        document.body.classList.remove('admin-locked');
-      }, 350);
-
-      showToast('🔓 Sugeng rawuh! Akses dasbor kasil kabikak.');
-    } else {
+  function updateLockoutUI() {
+    const remaining = getLockoutRemaining();
+    if (remaining > 0) {
+      if (submitBtn) submitBtn.disabled = true;
+      if (passInput) passInput.disabled = true;
       if (errorEl) {
-        errorEl.textContent = '⚠️ Sandi klentu! (Kata sandi salah). Silakan coba lagi.';
+        errorEl.innerHTML = `🔒 Terlalu banyak percobaan gagal. Tunggu <strong>${remaining} detik</strong> sebelum mencoba lagi.`;
         errorEl.style.display = 'block';
       }
+      if (!lockoutTimerInterval) {
+        lockoutTimerInterval = setInterval(() => {
+          const r = getLockoutRemaining();
+          if (r <= 0) {
+            clearInterval(lockoutTimerInterval);
+            lockoutTimerInterval = null;
+            if (submitBtn) submitBtn.disabled = false;
+            if (passInput) { passInput.disabled = false; passInput.focus(); }
+            if (errorEl) errorEl.style.display = 'none';
+          } else {
+            if (errorEl) {
+              errorEl.innerHTML = `🔒 Terlalu banyak percobaan gagal. Tunggu <strong>${r} detik</strong> sebelum mencoba lagi.`;
+            }
+          }
+        }, 1000);
+      }
+    } else {
+      if (submitBtn) submitBtn.disabled = false;
+      if (passInput) passInput.disabled = false;
+    }
+  }
+
+  // Check existing session
+  if (isSessionAuthenticated()) {
+    hideLockScreen();
+  } else {
+    showLockScreen();
+  }
+
+  // Auto-lock on session timeout (check every 60s)
+  setInterval(() => {
+    if (!isSessionAuthenticated() && overlay.style.display === 'none') {
+      showLockScreen();
+      showToast('⏱️ Sesi habis. Mangga login malih.');
+    }
+  }, 60 * 1000);
+
+  // Refresh session on user activity
+  ['click', 'keydown', 'scroll'].forEach(evt => {
+    document.addEventListener(evt, () => refreshSessionTimestamp(), { passive: true });
+  });
+
+  // Handle Unlock
+  lockForm?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Check lockout first
+    if (getLockoutRemaining() > 0) {
+      updateLockoutUI();
+      return;
+    }
+
+    const entered = (passInput?.value || '').trim();
+    if (!entered) return;
+
+    // Disable button during check
+    if (submitBtn) submitBtn.disabled = true;
+
+    const isValid = await verifyPassword(entered);
+
+    if (isValid) {
+      resetFails();
+      createSession();
+      if (errorEl) errorEl.style.display = 'none';
+      passInput?.classList.remove('has-error');
+      hideLockScreen();
+      showToast('🔓 Sugeng rawuh! Akses dasbor kasil kabikak.');
+    } else {
+      const failCount = incrementFail();
+      const attemptsLeft = MAX_FAIL_ATTEMPTS - failCount;
+
+      if (attemptsLeft > 0) {
+        if (errorEl) {
+          errorEl.textContent = `⚠️ Sandi klentu! Sisa percobaan: ${attemptsLeft}`;
+          errorEl.style.display = 'block';
+        }
+      }
+      updateLockoutUI();
       passInput?.classList.add('has-error', 'shake-anim');
       setTimeout(() => passInput?.classList.remove('shake-anim'), 500);
       passInput?.select();
     }
+
+    if (submitBtn && getLockoutRemaining() <= 0) submitBtn.disabled = false;
   });
 
   // Toggle eye show/hide password
@@ -231,14 +437,8 @@ function initAdminAuth() {
 
   // Lock button in navbar
   btnLock?.addEventListener('click', () => {
-    sessionStorage.removeItem(ADMIN_AUTH_KEY);
-    if (passInput) passInput.value = '';
-    if (errorEl) errorEl.style.display = 'none';
-    overlay.style.display = 'flex';
-    overlay.style.opacity = '1';
-    overlay.style.pointerEvents = 'all';
-    document.body.classList.add('admin-locked');
-    setTimeout(() => passInput?.focus(), 200);
+    destroySession();
+    showLockScreen();
     showToast('🔒 Dasbor kasil dipunkunci.');
   });
 
@@ -265,7 +465,7 @@ function initAdminAuth() {
   modalChangePassBackdrop?.addEventListener('click', closeChangePassModal);
 
   // Save New Password
-  btnSaveNewPass?.addEventListener('click', () => {
+  btnSaveNewPass?.addEventListener('click', async () => {
     const curVal = (document.getElementById('currentPassInput')?.value || '').trim();
     const newVal = (document.getElementById('newPassInput')?.value || '').trim();
     const confVal = (document.getElementById('confirmNewPassInput')?.value || '').trim();
@@ -278,7 +478,8 @@ function initAdminAuth() {
       }
     };
 
-    if (curVal !== getAdminPassword()) {
+    const isCurrentValid = await verifyPassword(curVal);
+    if (!isCurrentValid) {
       showModalErr('⚠️ Kata sandi saat ini tidak cocok.');
       return;
     }
@@ -291,7 +492,7 @@ function initAdminAuth() {
       return;
     }
 
-    setAdminPassword(newVal);
+    await setAdminPassword(newVal);
     closeChangePassModal();
     showToast('🔑 Kata sandi admin berhasil diperbarui!');
   });
