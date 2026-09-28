@@ -1,0 +1,140 @@
+{
+  "theme": "Javanese Wayang Heritage",
+  "version": "1.0.0",
+  "mempelai": {
+    "pria": {
+      "namaLengkap": "Raden Fernando Pratama, S.T.",
+      "namaPanggilan": "Fernando",
+      "gelar": "Putra Pertama",
+      "orangTua": "Bapak Ir. H. Bambang Wijaya & Ibu Hj. Siti Rahayu",
+      "instagram": "fernandopratama",
+      "foto": "assets/images/wayang-pria.svg",
+      "deskripsi": "Seorang pria yang memegang teguh nilai kesantunan, berjiwa ksatria, dan setia membimbing bahtera cinta."
+    },
+    "wanita": {
+      "namaLengkap": "Raden Ayu Liahne Kusumaningrum, S.Psi.",
+      "namaPanggilan": "Liahne",
+      "gelar": "Putri Kedua",
+      "orangTua": "Bapak Dr. H. Soedirman Hadiningrat & Ibu Hj. Endang Sulastri",
+      "instagram": "liahnekusuma",
+      "foto": "assets/images/wayang-wanita.svg",
+      "deskripsi": "Wanita berhati lembut, anggun dalam tutur kata dan laku, laksana Dewi Kamaratih pembawa ketenteraman jiwa."
+    }
+  },
+  "quotes": {
+    "teks": "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang.",
+    "sumber": "QS. Ar-Rum: 21",
+    "falsafah": "Cakra Manggilingan Tresna — Manunggaling Roso, Cipto, lan Karso tumuju ing Kamulyan."
+  },
+  "acara": {
+    "akad": {
+      "judul": "Ijab Kabul / Akad Nikah",
+      "hari": "Sabtu Legi",
+      "tanggal": "24 Oktober 2026",
+      "waktu": "08.00 - 10.00 WIB",
+      "tempat": "Pendopo Agung Royal Ambarrukmo",
+      "alamat": "Jl. Laksda Adisucipto No.81, Ambarukmo, Caturtunggal, Kec. Depok, Kabupaten Sleman, D.I. Yogyakarta",
+      "googleMapsUrl": "https://maps.google.com/?q=Pendopo+Agung+Royal+Ambarrukmo+Yogyakarta",
+      "calendar": {
+        "title": "Akad Nikah Liahne & Fernando",
+        "description": "Akad Nikah Liahne & Fernando di Pendopo Agung Royal Ambarrukmo Yogyakarta",
+        "location": "Pendopo Agung Royal Ambarrukmo Yogyakarta",
+        "startDate": "20261024T010000Z",
+        "endDate": "20261024T030000Z"
+      }
+    },
+    "resepsi": {
+      "judul": "Pahargyan Temanten / Resepsi",
+      "hari": "Sabtu Legi",
+      "tanggal": "24 Oktober 2026",
+      "waktu": "11.00 - 14.00 WIB",
+      "tempat": "Bale Mangunharjo, Royal Ambarrukmo",
+      "alamat": "Jl. Laksda Adisucipto No.81, Ambarukmo, Caturtunggal, Kec. Depok, Kabupaten Sleman, D.I. Yogyakarta",
+      "googleMapsUrl": "https://maps.google.com/?q=Pendopo+Agung+Royal+Ambarrukmo+Yogyakarta",
+      "calendar": {
+        "title": "Resepsi Pernikahan Liahne & Fernando",
+        "description": "Resepsi Pernikahan Liahne & Fernando di Pendopo Agung Royal Ambarrukmo Yogyakarta",
+        "location": "Bale Mangunharjo, Royal Ambarrukmo Yogyakarta",
+        "startDate": "20261024T040000Z",
+        "endDate": "20261024T070000Z"
+      }
+    },
+    "gmapsBarcode": {
+      "tampilkan": true,
+      "judul": "Pindai Barcode Google Maps",
+      "keterangan": "Arahkan kodhak / kamera ponsel panjenengan kagem mbikak pituduh rute navigasi Google Maps tumuju sasana pahargyan.",
+      "url": "https://maps.google.com/?q=Pendopo+Agung+Royal+Ambarrukmo+Yogyakarta"
+    }
+  },
+  "countdownTarget": "2026-10-24T08:00:00+07:00",
+  "kisah": [
+    {
+      "tahun": "2021",
+      "judul": "Pitepangan (Awal Perjumpaan)",
+      "deskripsi": "Garis takdir mempertemukan kami di sebuah simfoni gamelan Yogyakarta. Berawal dari tutur sapa sederhana, terajut rasa saling mengerti dan menghormati."
+    },
+    {
+      "tahun": "2024",
+      "judul": "Kidung Tresna (Mengikat Janji)",
+      "deskripsi": "Setelah melangkah bersama melalui suka dan duka, kami meyakini bahwa langkah ini adalah panggilan jiwa untuk saling membersamai hingga akhir hayat."
+    },
+    {
+      "tahun": "2026",
+      "judul": "Dhaup Suci (Menuju Mahligai)",
+      "deskripsi": "Dengan restu kedua orang tua dan leluhur, kami menyatukan dua keluarga besar dalam ikatan suci pernikahan berbalut adat Jawa adiluhung."
+    }
+  ],
+  "galeri": [
+    {
+      "url": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80",
+      "caption": "Kidung Tresna ing Ngayogyakarta",
+      "alt": "Foto Busana Adat Jawa Pengantin"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
+      "caption": "Manunggaling Roso lan Jiwo",
+      "alt": "Momen Kasih Pasangan Mempelai"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80",
+      "caption": "Langkah Menuju Mahligai Suci",
+      "alt": "Janji Pernikahan"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80",
+      "caption": "Sembah Sujud Doa Pangestu",
+      "alt": "Doa Restu Keluarga"
+    }
+  ],
+  "hadiah": {
+    "deskripsi": "Doa restu panjenengan sedaya sampun dados berkah ingkang tanpa upami tumrap kula sakaliyan. Nanging menawi panjenengan kersa paring tanda katresnan, saged lumantar rekening ing ngandhap menika:",
+    "rekening": [
+      {
+        "bank": "BCA",
+        "nomor": "8935129481",
+        "atasNama": "Fernando Pratama",
+        "logo": "BCA"
+      },
+      {
+        "bank": "Bank Mandiri",
+        "nomor": "1370019284712",
+        "atasNama": "Liahne Kusumaningrum",
+        "logo": "MANDIRI"
+      }
+    ],
+    "kadoFisik": {
+      "penerima": "Liahne & Fernando",
+      "telepon": "0812-3456-7890",
+      "alamat": "Komplek Bale Asri No. 12, Caturtunggal, Depok, Sleman, D.I. Yogyakarta 55281"
+    }
+  },
+  "rsvp": {
+    "whatsappNumber": "6281234567890",
+    "defaultPesan": "Sugeng rawuh! Kula ngaturaken matur nuwun inggil serat sedhahanipun."
+  },
+  "audio": {
+    "judul": "Wonderful Gamelan Indonesia Traditional Music",
+    "mode": "file",
+    "src": "assets/audio/gamelan.mp3"
+  }
+}

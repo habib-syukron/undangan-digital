@@ -1,0 +1,150 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 620" width="100%" height="100%" fill="none">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E5C77A"/>
+      <stop offset="35%" stop-color="#B88E4B"/>
+      <stop offset="70%" stop-color="#8E6527"/>
+      <stop offset="100%" stop-color="#D4AB5E"/>
+    </linearGradient>
+    <linearGradient id="goldGlow" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#DFBA73" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#8C5C23" stop-opacity="0.9"/>
+    </linearGradient>
+    <radialGradient id="lampGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFDE82" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#FFDE82" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="shadowDepth" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+
+  <!-- Ambient background glow behind Kayon -->
+  <ellipse cx="200" cy="300" rx="160" ry="220" fill="url(#lampGlow)" />
+
+  <g filter="url(#shadowDepth)">
+    <!-- Base Handle (Tangkai Gapuran) -->
+    <path d="M194 540 L194 610 C194 615 206 615 206 610 L206 540 Z" fill="url(#goldGradient)" stroke="#231913" stroke-width="1.5"/>
+    <path d="M188 540 L212 540 L208 555 L192 555 Z" fill="#8E6527" stroke="#231913" stroke-width="1"/>
+
+    <!-- Main Silhouette Body of Gunungan (Kayon) -->
+    <!-- Pointed top, wide undulating shoulders, symmetrical curve tapering down to plinth -->
+    <path d="M200 20
+             C206 50, 218 80, 238 120
+             C258 160, 290 195, 320 230
+             C350 265, 368 310, 360 360
+             C352 410, 320 445, 295 470
+             C270 495, 245 520, 230 535
+             L170 535
+             C155 520, 130 495, 105 470
+             C80 445, 48 410, 40 360
+             C32 310, 50 265, 80 230
+             C110 195, 142 160, 162 120
+             C182 80, 194 50, 200 20 Z"
+          fill="#1C140F" stroke="url(#goldGradient)" stroke-width="3" stroke-linejoin="round"/>
+
+    <!-- Inner Filigree & Sacred Border Lines -->
+    <path d="M200 35
+             C205 60, 215 90, 232 126
+             C250 162, 280 195, 308 228
+             C335 260, 350 300, 344 345
+             C338 390, 310 422, 286 448
+             C262 472, 240 495, 224 515
+             L176 515
+             C160 495, 138 472, 114 448
+             C90 422, 62 390, 56 345
+             C50 300, 65 260, 92 228
+             C120 195, 150 162, 168 126
+             C185 90, 195 60, 200 35 Z"
+          fill="none" stroke="url(#goldGradient)" stroke-width="1.5" stroke-dasharray="6,3"/>
+
+    <!-- Pintu Gapura / Candi Bentar (Portal Gateway) -->
+    <!-- Base Platform of Gate -->
+    <rect x="140" y="475" width="120" height="12" rx="2" fill="#583827" stroke="url(#goldGradient)" stroke-width="1.5"/>
+    <rect x="150" y="465" width="100" height="10" rx="1.5" fill="#8C5C23" stroke="url(#goldGradient)" stroke-width="1.2"/>
+    <rect x="160" y="457" width="80" height="8" rx="1" fill="#583827" stroke="url(#goldGradient)" stroke-width="1"/>
+
+    <!-- Left Gate Pillar -->
+    <path d="M152 457 L152 355 L168 355 L172 457 Z" fill="#2A1B12" stroke="url(#goldGradient)" stroke-width="1.5"/>
+    <path d="M146 355 L174 355 L170 345 L150 345 Z" fill="url(#goldGradient)"/>
+    <path d="M148 345 L172 345 L166 330 L154 330 Z" fill="#2A1B12" stroke="url(#goldGradient)" stroke-width="1"/>
+    <path d="M154 330 L166 330 L160 315 Z" fill="url(#goldGradient)"/>
+
+    <!-- Right Gate Pillar -->
+    <path d="M248 457 L248 355 L232 355 L228 457 Z" fill="#2A1B12" stroke="url(#goldGradient)" stroke-width="1.5"/>
+    <path d="M254 355 L226 355 L230 345 L250 345 Z" fill="url(#goldGradient)"/>
+    <path d="M252 345 L228 345 L234 330 L246 330 Z" fill="#2A1B12" stroke="url(#goldGradient)" stroke-width="1"/>
+    <path d="M246 330 L234 330 L240 315 Z" fill="url(#goldGradient)"/>
+
+    <!-- Gate Door Open/Closed Wing (Lantai Keraton) -->
+    <rect x="175" y="375" width="50" height="82" rx="2" fill="#150E09" stroke="url(#goldGradient)" stroke-width="1.2"/>
+    <!-- Door filigree pattern -->
+    <path d="M175 375 L225 457 M225 375 L175 457" stroke="url(#goldGradient)" stroke-width="0.8" stroke-opacity="0.6"/>
+    <circle cx="200" cy="416" r="8" fill="#B88E4B" stroke="#231913" stroke-width="1"/>
+
+    <!-- Head of Banaspati / Kala (Top of the Gate) -->
+    <g transform="translate(200, 310)">
+      <path d="M-22 0 C-18 -16, 18 -16, 22 0 C16 12, -16 12, -22 0 Z" fill="url(#goldGradient)" stroke="#231913" stroke-width="1"/>
+      <circle cx="-9" cy="-3" r="3.5" fill="#231913"/>
+      <circle cx="9" cy="-3" r="3.5" fill="#231913"/>
+      <path d="M-14 4 Q0 10 14 4" stroke="#231913" stroke-width="1.5" fill="none"/>
+    </g>
+
+    <!-- Tree of Life (Pohon Hayat) Trunk & Main Branches -->
+    <!-- Trunk extending upward from Kala -->
+    <path d="M195 295 L195 140 L205 140 L205 295 Z" fill="url(#goldGradient)" stroke="#231913" stroke-width="1"/>
+
+    <!-- Symmetrical Branches Branching Left & Right -->
+    <!-- Lower Branches -->
+    <path d="M195 270 C160 265, 120 280, 95 315 C115 305, 150 295, 195 285" fill="url(#goldGradient)" stroke="#231913" stroke-width="1"/>
+    <path d="M205 270 C240 265, 280 280, 305 315 C285 305, 250 295, 205 285" fill="url(#goldGradient)" stroke="#231913" stroke-width="1"/>
+
+    <!-- Middle Branches with Foliage Leaves -->
+    <path d="M195 230 C150 215, 110 230, 85 260 C105 245, 150 240, 195 245" fill="url(#goldGradient)" stroke="#231913" stroke-width="1"/>
+    <path d="M205 230 C250 215, 290 230, 315 260 C295 245, 250 240, 205 245" fill="url(#goldGradient)" stroke="#231913" stroke-width="1"/>
+
+    <!-- Upper Branches -->
+    <path d="M195 190 C160 170, 130 175, 110 200 C130 188, 165 190, 195 202" fill="url(#goldGradient)" stroke="#231913" stroke-width="1"/>
+    <path d="M205 190 C240 170, 270 175, 290 200 C270 188, 235 190, 205 202" fill="url(#goldGradient)" stroke="#231913" stroke-width="1"/>
+
+    <!-- Crown Crest & Top Canopy -->
+    <path d="M195 140 C170 115, 150 120, 140 145 C155 130, 180 135, 195 148" fill="url(#goldGradient)" stroke="#231913" stroke-width="0.8"/>
+    <path d="M205 140 C230 115, 250 120, 260 145 C245 130, 220 135, 205 148" fill="url(#goldGradient)" stroke="#231913" stroke-width="0.8"/>
+
+    <!-- Top Spire Crown (Pucuk Kayon) -->
+    <path d="M200 30 L204 80 L200 85 L196 80 Z" fill="url(#goldGradient)"/>
+    <circle cx="200" cy="50" r="4" fill="#FFE59E" stroke="#8E6527" stroke-width="0.8"/>
+    <circle cx="200" cy="70" r="3" fill="#FFE59E" stroke="#8E6527" stroke-width="0.8"/>
+    <circle cx="200" cy="90" r="3.5" fill="#FFE59E" stroke="#8E6527" stroke-width="0.8"/>
+
+    <!-- Symmetrical Animals / Sacred Birds on Branches -->
+    <!-- Left Sacred Bird (Burung Merak / Manyar) -->
+    <g transform="translate(130, 185) scale(0.65)">
+      <path d="M0 0 C-10 -15, -25 -10, -25 5 C-25 20, 0 30, 15 25 C10 15, 10 5, 0 0 Z" fill="url(#goldGradient)"/>
+      <path d="M-15 -5 C-25 -20, -15 -30, -5 -25 C-10 -20, -5 -10, -15 -5 Z" fill="#DFBA73"/>
+      <circle cx="-18" cy="-2" r="1.5" fill="#231913"/>
+    </g>
+    <!-- Right Sacred Bird -->
+    <g transform="translate(270, 185) scale(-0.65, 0.65)">
+      <path d="M0 0 C-10 -15, -25 -10, -25 5 C-25 20, 0 30, 15 25 C10 15, 10 5, 0 0 Z" fill="url(#goldGradient)"/>
+      <path d="M-15 -5 C-25 -20, -15 -30, -5 -25 C-10 -20, -5 -10, -15 -5 Z" fill="#DFBA73"/>
+      <circle cx="-18" cy="-2" r="1.5" fill="#231913"/>
+    </g>
+
+    <!-- Intricate Floral Spirals (Lung-lungan Jawa) in Empty Spaces -->
+    <g stroke="url(#goldGradient)" stroke-width="1.2" fill="none" stroke-linecap="round">
+      <!-- Left side curls -->
+      <path d="M120 280 C95 260, 80 290, 100 310 C110 320, 125 315, 120 300"/>
+      <path d="M140 220 C115 200, 100 230, 120 250 C130 260, 145 255, 140 240"/>
+      <path d="M150 160 C130 140, 115 165, 135 180"/>
+      <path d="M175 105 C160 85, 145 105, 160 120"/>
+
+      <!-- Right side curls -->
+      <path d="M280 280 C305 260, 320 290, 300 310 C290 320, 275 315, 280 300"/>
+      <path d="M260 220 C285 200, 300 230, 280 250 C270 260, 255 255, 260 240"/>
+      <path d="M250 160 C270 140, 285 165, 265 180"/>
+      <path d="M225 105 C240 85, 255 105, 240 120"/>
+    </g>
+  </g>
+</svg>

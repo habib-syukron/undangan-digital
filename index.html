@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Pernikahan Liahne & Fernando — Javanese Wayang Heritage</title>
+  <meta name="description"
+    content="Serat Sedhahan Pawiwahan Ageng Raden Fernando Pratama & Raden Ayu Liahne Kusumaningrum. Pawiwahan Adat Jawa Adiluhung.">
+  <meta name="theme-color" content="#231913">
+
+  <!-- Open Graph / WhatsApp Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Pawiwahan Liahne & Fernando — Javanese Wayang Heritage">
+  <meta property="og:description"
+    content="Katur kagem Panjenengan sami, nyuwun berkah pangestu ing dinten pahargyan dhaup suci kula sakaliyan.">
+  <meta property="og:image" content="assets/images/gunungan.svg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="assets/images/gunungan.svg">
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/pakeliran.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+  <link rel="stylesheet" href="assets/css/sections.css">
+</head>
+
+<body class="pakeliran-active">
+
+  <!-- ========================================================================
+       1. PAKELIRAN OPENING COVER (GUNUNGAN & BLENCONG SCREEN)
+       ======================================================================== -->
+  <div id="pakeliranCover" class="pakeliran-cover" role="dialog" aria-modal="true"
+    aria-label="Cover Pembukaan Undangan Wayang">
+    <div class="pakeliran-backdrop"></div>
+    <div class="blencong-light"></div>
+
+    <!-- Kelir Parting Curtains -->
+    <div class="kelir-wing kelir-wing-left"></div>
+    <div class="kelir-wing kelir-wing-right"></div>
+
+    <div class="pakeliran-content">
+      <div class="pakeliran-gunungan-wrap">
+        <img src="assets/images/gunungan.svg" alt="Gunungan Wayang Kayon" class="pakeliran-gunungan-img">
+      </div>
+
+      <div class="pakeliran-badge">Pawiwahan Ageng</div>
+      <h1 class="pakeliran-names">Liahne <span>&amp;</span> Fernando</h1>
+
+      <!-- Personalized Guest Badge (?to=Nama+Tamu) -->
+      <div class="guest-card">
+        <div class="guest-card-corner guest-card-tl"></div>
+        <div class="guest-card-corner guest-card-tr"></div>
+        <div class="guest-card-corner guest-card-bl"></div>
+        <div class="guest-card-corner guest-card-br"></div>
+        <div class="guest-label">Katur Kagem Panjenengan:</div>
+        <div id="guestNameDisplay" class="guest-name">Tamu Undangan</div>
+      </div>
+
+      <button id="btnBukaUndangan" class="btn-buka-undangan" type="button">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12 2L4 7v10l8 5 8-5V7l-8-5zm0 2.8L18 8l-6 3.7L6 8l6-3.2zm-6 5.5l5 3.1v6.8l-5-3.1V10.3zm12 6.8l-5 3.1v-6.8l5-3.1v6.8z" />
+        </svg>
+        Buka Undangan
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MAIN INVITATION WRAPPER
+       ======================================================================== -->
+  <div class="invitation-wrapper">
+
+    <!-- ----------------------------------------------------------------------
+         HERO SECTION
+         ---------------------------------------------------------------------- -->
+    <header class="inv-section hero-section">
+      <img src="assets/images/ornament-corner.svg" alt="" class="corner-ornament corner-top-left">
+      <img src="assets/images/ornament-corner.svg" alt="" class="corner-ornament corner-top-right">
+
+      <div class="hero-gunungan-center reveal-on-scroll">
+        <img src="assets/images/gunungan.svg" alt="Gunungan Wayang">
+      </div>
+
+      <div class="hero-greeting reveal-on-scroll">Assalamu’alaikum Wr. Wb.</div>
+      <div class="hero-title reveal-on-scroll">Pawiwahan Dhaup Suci</div>
+      <h2 class="hero-names reveal-on-scroll">
+        Liahne Kusuma <span>&amp;</span> Fernando Pratama
+      </h2>
+      <div class="section-divider reveal-on-scroll"></div>
+      <div class="hero-date-badge reveal-on-scroll">Sabtu Legi, 24 Oktober 2026</div>
+    </header>
+
+    <!-- ----------------------------------------------------------------------
+         QUOTES SECTION
+         ---------------------------------------------------------------------- -->
+    <section class="inv-section quotes-section" aria-label="Ayat Suci & Doa">
+      <div class="ornate-card reveal-on-scroll">
+        <div class="card-corner card-corner-tl"></div>
+        <div class="card-corner card-corner-tr"></div>
+        <div class="card-corner card-corner-bl"></div>
+        <div class="card-corner card-corner-br"></div>
+
+        <p id="quoteTeks" class="quote-translation">
+          "Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu
+          sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan
+          sayang."
+        </p>
+        <div id="quoteSumber" class="quote-source">QS. Ar-Rum: 21</div>
+        <div id="quoteFalsafah" class="quote-falsafah">
+          Cakra Manggilingan Tresna — Manunggaling Roso, Cipto, lan Karso tumuju ing Kamulyan.
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         MEMPELAI SECTION (PASANGAN WAYANG)
+         ---------------------------------------------------------------------- -->
+    <section class="inv-section mempelai-section" aria-label="Profil Mempelai">
+      <div class="section-header reveal-on-scroll">
+        <span class="section-pretitle">Duta Asmara</span>
+        <h2 class="section-title">Temanten Sekalian</h2>
+        <div class="section-divider"></div>
+        <p style="font-size: 0.85rem; max-width: 380px;">Kanthi asmaning Gusti Ingkang Maha Asih, linambaran sih
+          katresnan ingkang suci, kula sakaliyan nyuwun donga pangestu:</p>
+      </div>
+
+      <!-- Mempelai Pria (Raden Kamajaya) -->
+      <div class="mempelai-card reveal-on-scroll">
+        <div class="mempelai-avatar-wrap">
+          <img src="assets/images/wayang-pria.svg" alt="Siluet Raden Kamajaya" class="mempelai-avatar-img">
+        </div>
+        <h3 id="mempelaiPriaNama" class="mempelai-name">Raden Fernando Pratama, S.T.</h3>
+        <div id="mempelaiPriaGelar" class="mempelai-relation">Putra Pertama</div>
+        <div id="mempelaiPriaOrtu" class="mempelai-parents">Bapak Ir. H. Bambang Wijaya &amp; Ibu Hj. Siti Rahayu</div>
+        <p id="mempelaiPriaDesc" class="mempelai-desc">Seorang pria yang memegang teguh nilai kesantunan, berjiwa
+          ksatria, dan setia membimbing bahtera cinta.</p>
+        <a id="mempelaiPriaIg" href="https://instagram.com/fernandopratama" target="_blank" rel="noopener noreferrer"
+          class="btn btn-outline btn-sm">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+          </svg>
+          @fernandopratama
+        </a>
+      </div>
+
+      <div class="mempelai-ampersand reveal-on-scroll">&amp;</div>
+
+      <!-- Mempelai Wanita (Dewi Kamaratih) -->
+      <div class="mempelai-card reveal-on-scroll">
+        <div class="mempelai-avatar-wrap">
+          <img src="assets/images/wayang-wanita.svg" alt="Siluet Dewi Kamaratih" class="mempelai-avatar-img">
+        </div>
+        <h3 id="mempelaiWanitaNama" class="mempelai-name">Raden Ayu Liahne Kusumaningrum, S.Psi.</h3>
+        <div id="mempelaiWanitaGelar" class="mempelai-relation">Putri Kedua</div>
+        <div id="mempelaiWanitaOrtu" class="mempelai-parents">Bapak Dr. H. Soedirman Hadiningrat &amp; Ibu Hj. Endang
+          Sulastri</div>
+        <p id="mempelaiWanitaDesc" class="mempelai-desc">Wanita berhati lembut, anggun dalam tutur kata dan laku,
+          laksana Dewi Kamaratih pembawa ketenteraman jiwa.</p>
+        <a id="mempelaiWanitaIg" href="https://instagram.com/liahnekusuma" target="_blank" rel="noopener noreferrer"
+          class="btn btn-outline btn-sm">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
+          </svg>
+          @liahnekusuma
+        </a>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         SEPENGGAL KISAH / KIDUNG TRESNA (TIMELINE)
+         ---------------------------------------------------------------------- -->
+    <section class="inv-section kisah-section" aria-label="Kidung Tresna">
+      <div class="section-header reveal-on-scroll">
+        <span class="section-pretitle">Lelampahan Tresna</span>
+        <h2 class="section-title">Kidung Tresna</h2>
+        <div class="section-divider"></div>
+        <p style="font-size: 0.85rem;">Sepenggal kisah perjalanan rasa, dari pandangan pertama hingga ikrar suci.</p>
+      </div>
+
+      <div id="timelineContainer" class="timeline-container">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         COUNTDOWN SECTION
+         ---------------------------------------------------------------------- -->
+    <section class="inv-section countdown-section" aria-label="Hitung Mundur">
+      <div class="ornate-card reveal-on-scroll">
+        <div class="card-corner card-corner-tl"></div>
+        <div class="card-corner card-corner-tr"></div>
+        <div class="card-corner card-corner-bl"></div>
+        <div class="card-corner card-corner-br"></div>
+
+        <span class="section-pretitle">Menuju Hari Bahagia</span>
+        <h2 class="section-title" style="font-size: 1.6rem;">Wanci Dhaup Suci</h2>
+        <div class="section-divider"></div>
+
+        <div class="countdown-grid">
+          <div class="countdown-box">
+            <div id="cdDays" class="countdown-number">00</div>
+            <div class="countdown-label">Dinten</div>
+          </div>
+          <div class="countdown-box">
+            <div id="cdHours" class="countdown-number">00</div>
+            <div class="countdown-label">Jam</div>
+          </div>
+          <div class="countdown-box">
+            <div id="cdMinutes" class="countdown-number">00</div>
+            <div class="countdown-label">Menit</div>
+          </div>
+          <div class="countdown-box">
+            <div id="cdSeconds" class="countdown-number">00</div>
+            <div class="countdown-label">Detik</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         ACARA SECTION (AKAD & RESEPSI)
+         ---------------------------------------------------------------------- -->
+    <section class="inv-section acara-section" aria-label="Rangkaian Acara">
+      <div class="section-header reveal-on-scroll">
+        <span class="section-pretitle">Reroncening Adicara</span>
+        <h2 class="section-title">Wanci &amp; Papan Palenggahan</h2>
+        <div class="section-divider"></div>
+      </div>
+
+      <!-- Akad Nikah Card -->
+      <div class="ornate-card event-card reveal-on-scroll">
+        <div class="card-corner card-corner-tl"></div>
+        <div class="card-corner card-corner-tr"></div>
+        <div class="card-corner card-corner-bl"></div>
+        <div class="card-corner card-corner-br"></div>
+
+        <div class="event-icon-wrap">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z" />
+          </svg>
+        </div>
+        <div class="event-badge">Adicara I</div>
+        <h3 id="akadJudul" class="event-title">Ijab Kabul / Akad Nikah</h3>
+
+        <div class="event-date-row">
+          <span id="akadHari" class="event-day">Sabtu Legi</span>
+          <span id="akadTanggal" class="event-date">24 Oktober 2026</span>
+          <span id="akadWaktu" class="event-time">08.00 - 10.00 WIB</span>
+        </div>
+
+        <div id="akadTempat" class="event-venue-name">Pendopo Agung Royal Ambarrukmo</div>
+        <div id="akadAlamat" class="event-venue-address">Jl. Laksda Adisucipto No.81, Ambarukmo, Caturtunggal, Kec.
+          Depok, Sleman, D.I. Yogyakarta</div>
+
+        <div class="event-actions">
+          <a id="akadCalBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" />
+            </svg>
+            Simpan Kalender
+          </a>
+          <a id="akadMapsBtn" href="https://maps.google.com/?q=Pendopo+Agung+Royal+Ambarrukmo+Yogyakarta"
+            target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+            </svg>
+            Buka Peta Lokasi
+          </a>
+        </div>
+      </div>
+
+      <!-- Resepsi Card -->
+      <div class="ornate-card event-card reveal-on-scroll">
+        <div class="card-corner card-corner-tl"></div>
+        <div class="card-corner card-corner-tr"></div>
+        <div class="card-corner card-corner-bl"></div>
+        <div class="card-corner card-corner-br"></div>
+
+        <div class="event-icon-wrap">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 16h2v2h-2zm0-6h2v4h-2z" />
+          </svg>
+        </div>
+        <div class="event-badge">Adicara II</div>
+        <h3 id="resepsiJudul" class="event-title">Pahargyan Temanten / Resepsi</h3>
+
+        <div class="event-date-row">
+          <span id="resepsiHari" class="event-day">Sabtu Legi</span>
+          <span id="resepsiTanggal" class="event-date">24 Oktober 2026</span>
+          <span id="resepsiWaktu" class="event-time">11.00 - 14.00 WIB</span>
+        </div>
+
+        <div id="resepsiTempat" class="event-venue-name">Bale Mangunharjo, Royal Ambarrukmo</div>
+        <div id="resepsiAlamat" class="event-venue-address">Jl. Laksda Adisucipto No.81, Ambarukmo, Caturtunggal, Kec.
+          Depok, Sleman, D.I. Yogyakarta</div>
+
+        <div class="event-actions">
+          <a id="resepsiCalBtn" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-outline btn-sm">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z" />
+            </svg>
+            Simpan Kalender
+          </a>
+          <a id="resepsiMapsBtn" href="https://maps.google.com/?q=Pendopo+Agung+Royal+Ambarrukmo+Yogyakarta"
+            target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+            </svg>
+            Buka Peta Lokasi
+          </a>
+        </div>
+      </div>
+
+      <!-- Barcode Google Maps Navigasi Card (Pengganti QRIS) -->
+      <div id="gmapsBarcodeBox" class="ornate-card gmaps-barcode-card reveal-on-scroll">
+        <div class="card-corner card-corner-tl"></div>
+        <div class="card-corner card-corner-tr"></div>
+        <div class="card-corner card-corner-bl"></div>
+        <div class="card-corner card-corner-br"></div>
+
+        <div class="gmaps-barcode-header">
+          <div class="gmaps-pin-icon">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+            </svg>
+          </div>
+          <span class="section-pretitle" style="margin-bottom: 2px;">Pandom Papan Palenggahan</span>
+          <h3 id="gmapsBarcodeJudul" class="gmaps-barcode-title">Pindai Barcode Google Maps</h3>
+          <div class="section-divider" style="margin: 8px auto 12px; width: 60px;"></div>
+          <p id="gmapsBarcodeKet" class="gmaps-barcode-desc">
+            Arahkan kodhak / kamera ponsel panjenengan dhateng kode barcode ing ngandhap menika kagem mbikak rute
+            navigasi Google Maps tumuju sasana pahargyan.
+          </p>
+        </div>
+
+        <div class="gmaps-qr-frame">
+          <img id="gmapsBarcodeImg"
+            src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https%3A%2F%2Fmaps.google.com%2F%3Fq%3DPendopo%2BAgung%2BRoyal%2BAmbarrukmo%2BYogyakarta"
+            alt="Barcode QR Code Google Maps Lokasi Pernikahan" class="gmaps-qr-img" loading="lazy">
+          <div class="gmaps-qr-scan-badge">Scan Barcode Navigasi</div>
+        </div>
+
+        <div class="gmaps-barcode-actions">
+          <a id="gmapsDirectBtn" href="https://maps.google.com/?q=Pendopo+Agung+Royal+Ambarrukmo+Yogyakarta"
+            target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+            </svg>
+            Buka Peta Google Maps
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         GALERI DOKUMENTASI SECTION
+         ---------------------------------------------------------------------- -->
+    <section class="inv-section galeri-section" aria-label="Galeri Foto">
+      <div class="section-header reveal-on-scroll">
+        <span class="section-pretitle">Koleksi Kenangan</span>
+        <h2 class="section-title">Galeri Katresnan</h2>
+        <div class="section-divider"></div>
+        <p style="font-size: 0.85rem;">Potret kebersamaan dalam balutan busana adat Jawa Ngayogyakarta.</p>
+      </div>
+
+      <div class="gallery-grid">
+        <div class="gallery-item reveal-on-scroll">
+          <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80"
+            alt="Busana Adat Pengantin Jawa" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="gallery-caption">Kidung Tresna ing Ngayogyakarta</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal-on-scroll">
+          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80"
+            alt="Manunggaling Roso" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="gallery-caption">Manunggaling Roso lan Jiwo</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal-on-scroll">
+          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80"
+            alt="Langkah Menuju Mahligai" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="gallery-caption">Langkah Menuju Mahligai Suci</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal-on-scroll">
+          <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80"
+            alt="Doa Restu Orang Tua" loading="lazy">
+          <div class="gallery-overlay">
+            <span class="gallery-caption">Sembah Sujud Doa Pangestu</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         PROTOKOL KESANTUNAN SECTION
+         ---------------------------------------------------------------------- -->
+    <section class="inv-section protokol-section" aria-label="Protokol Kehadiran">
+      <div class="section-header reveal-on-scroll">
+        <span class="section-pretitle">Paugeran Rawuh</span>
+        <h2 class="section-title">Tata Krama &amp; Kesantunan</h2>
+        <div class="section-divider"></div>
+        <p style="font-size: 0.85rem;">Kagem njagi kasucian lan katentreman lampahing adicara, kasuwun panjenengan
+          sedaya kersa nuhoni pitedah menika:</p>
+      </div>
+
+      <div class="protocols-grid">
+        <div class="protocol-item reveal-on-scroll">
+          <svg class="protocol-icon" viewBox="0 0 24 24">
+            <path
+              d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
+          </svg>
+          <div class="protocol-text"><strong>Rawuh Pas Wanci</strong><br>Hadir tepat waktu sebelum prosesi ijab kabul
+            dipunwiwiti.</div>
+        </div>
+        <div class="protocol-item reveal-on-scroll">
+          <svg class="protocol-icon" viewBox="0 0 24 24">
+            <path
+              d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5zm-3 5a3 3 0 0 1 6 0v3H9V7z" />
+          </svg>
+          <div class="protocol-text"><strong>Busana Santun</strong><br>Busana formal, batik, beskap, kebaya, utawi
+            ageman nasional.</div>
+        </div>
+        <div class="protocol-item reveal-on-scroll">
+          <svg class="protocol-icon" viewBox="0 0 24 24">
+            <path
+              d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z" />
+          </svg>
+          <div class="protocol-text"><strong>Dokumentasi Khidmat</strong><br>Kasuwun mboten ngganggu lampahing foto
+            resmi sasana pahargyan.</div>
+        </div>
+        <div class="protocol-item reveal-on-scroll">
+          <svg class="protocol-icon" viewBox="0 0 24 24">
+            <path
+              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+          </svg>
+          <div class="protocol-text"><strong>Donga Restu</strong><br>Paring donga berkah supados dados kulawarga sakinah
+            mawaddah warahmah.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         RSVP & UCAPAN SECTION
+         ---------------------------------------------------------------------- -->
+    <section class="inv-section rsvp-section" aria-label="Konfirmasi Kehadiran">
+      <div class="section-header reveal-on-scroll">
+        <span class="section-pretitle">Serat Palapuran</span>
+        <h2 class="section-title">Konfirmasi Rawuh (RSVP)</h2>
+        <div class="section-divider"></div>
+        <p style="font-size: 0.85rem;">Kersoa panjenengan paring katrangan rawuh supados kula saged nyamektakaken
+          pasugatan kanthi prayogi.</p>
+      </div>
+
+      <div class="ornate-card reveal-on-scroll">
+        <div class="card-corner card-corner-tl"></div>
+        <div class="card-corner card-corner-tr"></div>
+        <div class="card-corner card-corner-bl"></div>
+        <div class="card-corner card-corner-br"></div>
+
+        <form id="rsvpForm" class="rsvp-form">
+          <div class="form-group">
+            <label for="rsvpNama" class="form-label">Asma Panjenengan (Nama Lengkap):</label>
+            <input type="text" id="rsvpNama" class="form-input" placeholder="Tuliskan nama lengkap Anda" required>
+          </div>
+
+          <div class="form-group">
+            <label for="rsvpKehadiran" class="form-label">Kapastian Rawuh (Konfirmasi Kehadiran):</label>
+            <select id="rsvpKehadiran" class="form-select">
+              <option value="hadir">Kula badhe rawuh (Akan Hadir)</option>
+              <option value="tidak_hadir">Nyuwun pangapunten, mboten saged rawuh (Tidak Hadir)</option>
+              <option value="ragu">Taksih ragu / dereng tamtu (Masih Ragu)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="rsvpJumlah" class="form-label">Cacahing Tamu (Jumlah Kehadiran):</label>
+            <select id="rsvpJumlah" class="form-select">
+              <option value="1">1 Orang</option>
+              <option value="2">2 Orang</option>
+              <option value="3">3 Orang</option>
+              <option value="4">4 Orang</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="rsvpPesan" class="form-label">Donga Pangestu (Doa &amp; Ucapan):</label>
+            <textarea id="rsvpPesan" class="form-textarea"
+              placeholder="Tuliskan doa restu panjenengan kagem temanten sekalian..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+            <svg viewBox="0 0 24 24">
+              <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+            </svg>
+            Kirim Konfirmasi &amp; Donga Restu
+          </button>
+        </form>
+
+        <!-- Dynamic Wishes Wall Stream -->
+        <div class="wishes-stream-header"
+          style="margin-top: 2rem; border-top: 1px dashed rgba(184,142,75,0.4); padding-top: 1rem; text-align: left;">
+          <h4 style="font-family: var(--font-title); font-size: 1.15rem; color: var(--color-dark-jawa);">Buku Rawuh
+            &amp; Donga Pamuji:</h4>
+        </div>
+        <div id="wishesStream" class="wishes-stream">
+          <!-- Populated dynamically via rsvp-gift.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         TANDA KASIH (DIGITAL GIFT) SECTION
+         ---------------------------------------------------------------------- -->
+    <section class="inv-section hadiah-section" aria-label="Tanda Kasih">
+      <div class="section-header reveal-on-scroll">
+        <span class="section-pretitle">Tandha Katresnan</span>
+        <h2 class="section-title">Kado Dhigital</h2>
+        <div class="section-divider"></div>
+        <p id="hadiahDesc" style="font-size: 0.85rem; max-width: 400px;">
+          Doa restu panjenengan sedaya sampun dados berkah ingkang tanpa upami tumrap kula sakaliyan. Nanging menawi
+          panjenengan kersa paring tanda katresnan, saged lumantar rekening ing ngandhap menika:
+        </p>
+      </div>
+
+      <div class="ornate-card reveal-on-scroll">
+        <div class="card-corner card-corner-tl"></div>
+        <div class="card-corner card-corner-tr"></div>
+        <div class="card-corner card-corner-bl"></div>
+        <div class="card-corner card-corner-br"></div>
+
+        <div id="bankCardsContainer" class="bank-cards-container">
+          <!-- Populated dynamically via app.js -->
+        </div>
+
+        <!-- Physical Gift Address -->
+        <div class="kado-fisik-box"
+          style="margin-top: 1.5rem; text-align: left; padding: 12px; background: rgba(184,142,75,0.08); border-radius: var(--radius-sm); border: 1px solid rgba(184,142,75,0.25);">
+          <div
+            style="font-family: var(--font-title); font-weight: 700; color: var(--color-dark-jawa); margin-bottom: 4px;">
+            Kintunan Kado Fisik:</div>
+          <div id="kadoPenerima" style="font-size: 0.85rem; color: var(--color-terracotta); font-weight: 600;">Liahne
+            &amp; Fernando</div>
+          <div id="kadoTelepon" style="font-size: 0.8rem; color: var(--color-text-secondary);">0812-3456-7890</div>
+          <div id="kadoAlamat" style="font-size: 0.82rem; color: var(--color-text-secondary); margin: 4px 0 8px;">
+            Komplek Bale Asri No. 12, Caturtunggal, Depok, Sleman, D.I. Yogyakarta 55281</div>
+          <button id="copyAddressBtn" type="button" class="btn btn-outline btn-sm"
+            style="font-size: 0.68rem; padding: 6px 14px;"
+            data-copy="Liahne & Fernando (0812-3456-7890) - Komplek Bale Asri No. 12, Caturtunggal, Depok, Sleman, D.I. Yogyakarta 55281">
+            <svg viewBox="0 0 24 24">
+              <path
+                d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
+            </svg>
+            Salin Alamat Kado
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ----------------------------------------------------------------------
+         CLOSING SECTION (GUNUNGAN TANCEP & MATUR NUWUN)
+         ---------------------------------------------------------------------- -->
+    <footer class="inv-section closing-section" aria-label="Panutup">
+      <img src="assets/images/ornament-corner.svg" alt="" class="corner-ornament corner-bottom-left">
+      <img src="assets/images/ornament-corner.svg" alt="" class="corner-ornament corner-bottom-right">
+
+      <div class="closing-gunungan reveal-on-scroll">
+        <img src="assets/images/gunungan.svg" alt="Gunungan Tancep">
+      </div>
+
+      <p class="closing-text reveal-on-scroll">
+        Sapunika serat sedhahan menika kula aturaken. Awit saking rawuh saha donga pangestu panjenengan sedaya, kula
+        sakaliyan ngaturaken agenging panuwun ingkang tanpa upami.
+      </p>
+
+      <div class="closing-matur-nuwun reveal-on-scroll">Matur Nuwun</div>
+      <div class="closing-families reveal-on-scroll">
+        Kulawarga Ageng Bambang Wijaya &amp; Soedirman Hadiningrat
+      </div>
+
+      <div class="section-divider reveal-on-scroll" style="margin-top: 2rem;"></div>
+
+      <div id="footerCredits" class="footer-credits">
+        Javanese Wayang Heritage Digital Invitation &bull; Static-First Engine Rp0
+      </div>
+    </footer>
+
+  </div> <!-- End invitation-wrapper -->
+
+  <!-- Background Music Audio Element -->
+  <audio id="weddingBgAudio" loop preload="auto" src="assets/audio/gamelan.mp3"></audio>
+
+  <!-- ========================================================================
+       FLOATING AUDIO CONTROLLER BADGE
+       ======================================================================== -->
+  <button id="audioToggleBtn" class="audio-player-control" type="button" aria-label="Putar Musik Gamelan"
+    title="Putar Musik Gamelan">
+    <svg class="icon-disc" viewBox="0 0 24 24">
+      <path
+        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.49 0-4.5-2.01-4.5-4.5S9.51 7.5 12 7.5s4.5 2.01 4.5 4.5-2.01 4.5-4.5 4.5zm0-5.5c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z" />
+    </svg>
+  </button>
+
+  <!-- ========================================================================
+       TOAST FEEDBACK NOTICE
+       ======================================================================== -->
+  <div id="toastNotice" class="toast-notice" role="alert" aria-live="polite">
+    <svg viewBox="0 0 24 24">
+      <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+    </svg>
+    <span id="toastNoticeText">Nomor rekening kasil kasalin!</span>
+  </div>
+
+  <!-- ========================================================================
+       LIGHTBOX POPUP MODAL
+       ======================================================================== -->
+  <div id="lightboxModal" class="lightbox-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="lightbox-content">
+      <button id="lightboxClose" class="lightbox-close" type="button" aria-label="Tutup foto">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+        </svg>
+      </button>
+      <img id="lightboxImg" src="" alt="Detail Foto" class="lightbox-img">
+      <div id="lightboxCaption" class="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/guest-manager.js"></script>
+  <script src="assets/js/audio-player.js"></script>
+  <script src="assets/js/pakeliran.js"></script>
+  <script src="assets/js/countdown.js"></script>
+  <script src="assets/js/rsvp-gift.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+
+</html>

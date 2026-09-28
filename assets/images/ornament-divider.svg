@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 50" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="divGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E5C77A" stop-opacity="0.1"/>
+      <stop offset="25%" stop-color="#B88E4B"/>
+      <stop offset="50%" stop-color="#FFE59E"/>
+      <stop offset="75%" stop-color="#B88E4B"/>
+      <stop offset="100%" stop-color="#E5C77A" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Central Mini Gunungan Crest -->
+  <g transform="translate(200, 25) scale(0.7)">
+    <path d="M0 -22 C5 -12, 16 0, 22 10 L-22 10 C-16 0, -5 -12, 0 -22 Z" fill="#231913" stroke="url(#divGold)" stroke-width="1.5"/>
+    <circle cx="0" cy="-5" r="3.5" fill="#FFE59E"/>
+    <circle cx="0" cy="-22" r="2.5" fill="#B88E4B"/>
+    <line x1="0" y1="-18" x2="0" y2="8" stroke="url(#divGold)" stroke-width="1"/>
+  </g>
+
+  <!-- Left Symmetrical Wing -->
+  <g stroke="url(#divGold)" stroke-width="1.4" stroke-linecap="round">
+    <path d="M175 25 C140 25, 120 12, 90 20 C60 28, 40 25, 10 25"/>
+    <path d="M175 25 C150 25, 135 34, 110 30 C90 26, 70 25, 30 25" stroke-width="0.8" stroke-dasharray="4,3"/>
+    <!-- Left Leaf flourish -->
+    <path d="M135 22 C125 15, 115 16, 110 21 C120 23, 128 23, 135 22" fill="#B88E4B" fill-opacity="0.4"/>
+    <path d="M85 22 C75 16, 68 18, 65 23 C73 24, 79 24, 85 22" fill="#B88E4B" fill-opacity="0.3"/>
+    <circle cx="15" cy="25" r="2" fill="#B88E4B"/>
+  </g>
+
+  <!-- Right Symmetrical Wing -->
+  <g stroke="url(#divGold)" stroke-width="1.4" stroke-linecap="round">
+    <path d="M225 25 C260 25, 280 12, 310 20 C340 28, 360 25, 390 25"/>
+    <path d="M225 25 C250 25, 265 34, 290 30 C310 26, 330 25, 370 25" stroke-width="0.8" stroke-dasharray="4,3"/>
+    <!-- Right Leaf flourish -->
+    <path d="M265 22 C275 15, 285 16, 290 21 C280 23, 272 23, 265 22" fill="#B88E4B" fill-opacity="0.4"/>
+    <path d="M315 22 C325 16, 332 18, 335 23 C327 24, 321 24, 315 22" fill="#B88E4B" fill-opacity="0.3"/>
+    <circle cx="385" cy="25" r="2" fill="#B88E4B"/>
+  </g>
+</svg>

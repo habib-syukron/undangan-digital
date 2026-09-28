@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80">
+  <defs>
+    <style>
+      .petal { fill: #8E6527; fill-opacity: 0.055; stroke: #B88E4B; stroke-opacity: 0.14; stroke-width: 0.8; }
+      .core { fill: #B88E4B; fill-opacity: 0.2; }
+      .cross { stroke: #B88E4B; stroke-opacity: 0.12; stroke-width: 0.6; }
+      .dot { fill: #8E6527; fill-opacity: 0.25; }
+    </style>
+  </defs>
+
+  <!-- Kawung Unit Centered at (40, 40) -->
+  <g id="kawung-center">
+    <!-- 4 Elliptical Petals (Buah Kelapa / Aren) meeting at center -->
+    <ellipse cx="40" cy="26" rx="9" ry="14" class="petal" />
+    <ellipse cx="40" cy="54" rx="9" ry="14" class="petal" />
+    <ellipse cx="26" cy="40" rx="14" ry="9" class="petal" />
+    <ellipse cx="54" cy="40" rx="14" ry="9" class="petal" />
+
+    <!-- Inner dots inside petals -->
+    <circle cx="40" cy="22" r="1.5" class="dot"/>
+    <circle cx="40" cy="58" r="1.5" class="dot"/>
+    <circle cx="22" cy="40" r="1.5" class="dot"/>
+    <circle cx="58" cy="40" r="1.5" class="dot"/>
+
+    <!-- Center intersection diamond & cross -->
+    <rect x="37" y="37" width="6" height="6" transform="rotate(45 40 40)" class="core"/>
+    <circle cx="40" cy="40" r="1.2" fill="#583827" fill-opacity="0.3"/>
+  </g>
+
+  <!-- 4 Corner Kawung Units for seamless repetition -->
+  <!-- Top Left (0,0) -->
+  <ellipse cx="0" cy="14" rx="9" ry="14" class="petal" />
+  <ellipse cx="0" cy="-14" rx="9" ry="14" class="petal" />
+  <ellipse cx="-14" cy="0" rx="14" ry="9" class="petal" />
+  <ellipse cx="14" cy="0" rx="14" ry="9" class="petal" />
+  <circle cx="18" cy="0" r="1.5" class="dot"/>
+  <circle cx="0" cy="18" r="1.5" class="dot"/>
+  <rect x="-3" y="-3" width="6" height="6" transform="rotate(45 0 0)" class="core"/>
+
+  <!-- Top Right (80,0) -->
+  <ellipse cx="80" cy="14" rx="9" ry="14" class="petal" />
+  <ellipse cx="80" cy="-14" rx="9" ry="14" class="petal" />
+  <ellipse cx="66" cy="0" rx="14" ry="9" class="petal" />
+  <ellipse cx="94" cy="0" rx="14" ry="9" class="petal" />
+  <circle cx="62" cy="0" r="1.5" class="dot"/>
+  <circle cx="80" cy="18" r="1.5" class="dot"/>
+  <rect x="77" y="-3" width="6" height="6" transform="rotate(45 80 0)" class="core"/>
+
+  <!-- Bottom Left (0,80) -->
+  <ellipse cx="0" cy="94" rx="9" ry="14" class="petal" />
+  <ellipse cx="0" cy="66" rx="9" ry="14" class="petal" />
+  <ellipse cx="-14" cy="80" rx="14" ry="9" class="petal" />
+  <ellipse cx="14" cy="80" rx="14" ry="9" class="petal" />
+  <circle cx="18" cy="80" r="1.5" class="dot"/>
+  <circle cx="0" cy="62" r="1.5" class="dot"/>
+  <rect x="-3" y="77" width="6" height="6" transform="rotate(45 0 80)" class="core"/>
+
+  <!-- Bottom Right (80,80) -->
+  <ellipse cx="80" cy="94" rx="9" ry="14" class="petal" />
+  <ellipse cx="80" cy="66" rx="9" ry="14" class="petal" />
+  <ellipse cx="66" cy="80" rx="14" ry="9" class="petal" />
+  <ellipse cx="94" cy="80" rx="14" ry="9" class="petal" />
+  <circle cx="62" cy="80" r="1.5" class="dot"/>
+  <circle cx="80" cy="62" r="1.5" class="dot"/>
+  <rect x="77" y="77" width="6" height="6" transform="rotate(45 80 80)" class="core"/>
+
+  <!-- Interconnecting subtle diagonal lines -->
+  <line x1="0" y1="0" x2="80" y2="80" class="cross"/>
+  <line x1="80" y1="0" x2="0" y2="80" class="cross"/>
+</svg>

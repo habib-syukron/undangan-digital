@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Pengaturan Undangan &amp; Generator Tamu — Javanese Wayang Heritage</title>
+  <meta name="description" content="Dashboard pengaturan konten undangan pernikahan adat Jawa dan generator tautan tamu undangan.">
+  <link rel="icon" type="image/svg+xml" href="assets/images/gunungan.svg">
+
+  <!-- Core Stylesheets -->
+  <link rel="stylesheet" href="assets/css/variables.css">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body class="admin-body">
+
+  <!-- ========================================================================
+       TOP NAVBAR / ACTION BAR
+       ======================================================================== -->
+  <header class="admin-navbar">
+    <div class="admin-brand">
+      <img src="assets/images/gunungan.svg" alt="Gunungan Wayang" class="admin-logo-img">
+      <div>
+        <h1 class="admin-brand-title">Pawiwahan Ageng &bull; Dasbor Pengaturan</h1>
+        <div class="admin-brand-subtitle">Pusat Konfigurasi Undangan &amp; Generator Tamu</div>
+      </div>
+    </div>
+
+    <div class="admin-actions">
+      <a href="index.html" target="_blank" class="adm-btn adm-btn-outline" title="Buka Pratinjau Undangan di Tab Baru">
+        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+        Pratinjau Undangan
+      </a>
+
+      <button id="btnSaveConfig" type="button" class="adm-btn adm-btn-primary" title="Simpan perubahan langsung ke browser (LocalStorage)">
+        <svg viewBox="0 0 24 24"><path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/></svg>
+        Simpan Perubahan
+      </button>
+
+      <button id="btnDownloadConfig" type="button" class="adm-btn adm-btn-outline" title="Unduh berkas config.json untuk diunggah saat deploy">
+        <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
+        Unduh config.json
+      </button>
+
+      <button id="btnUploadConfig" type="button" class="adm-btn adm-btn-outline" title="Muat berkas config.json dari komputer">
+        <svg viewBox="0 0 24 24"><path d="M9 16h6v-6h4l-7-7-7 7h4zm-4 2h14v2H5z"/></svg>
+        Unggah JSON
+      </button>
+
+      <button id="btnCopyJson" type="button" class="adm-btn adm-btn-outline" title="Salin seluruh isi JSON ke clipboard">
+        <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+        Salin JSON
+      </button>
+
+      <button id="btnResetConfig" type="button" class="adm-btn adm-btn-danger" title="Kembalikan semua setelan ke bawaan awal">
+        <svg viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+        Reset Default
+      </button>
+
+      <input type="file" id="admFileInput" class="adm-hidden-file" accept=".json">
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       MAIN DASHBOARD CONTAINER
+       ======================================================================== -->
+  <main class="admin-container">
+
+    <!-- NAVIGATION TABS -->
+    <nav class="admin-tabs" aria-label="Navigasi Pengaturan">
+      <button type="button" class="admin-tab-btn is-active" data-tab="tabMempelai">
+        <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        Data Mempelai
+      </button>
+
+      <button type="button" class="admin-tab-btn" data-tab="tabAcara">
+        <svg viewBox="0 0 24 24"><path d="M19 4h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/></svg>
+        Jadwal &amp; Barcode Maps
+      </button>
+
+      <button type="button" class="admin-tab-btn" data-tab="tabQuotes">
+        <svg viewBox="0 0 24 24"><path d="M6 17h3l2-4V7H5v6h3zm8 0h3l2-4V7h-6v6h3z"/></svg>
+        Ayat &amp; Mutiara
+      </button>
+
+      <button type="button" class="admin-tab-btn" data-tab="tabKisah">
+        <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        Kisah Cinta
+      </button>
+
+      <button type="button" class="admin-tab-btn" data-tab="tabGaleri">
+        <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+        Galeri Foto
+      </button>
+
+      <button type="button" class="admin-tab-btn" data-tab="tabHadiah">
+        <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/></svg>
+        Kado &amp; Rekening
+      </button>
+
+      <button type="button" class="admin-tab-btn" data-tab="tabAudioRsvp">
+        <svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>
+        RSVP &amp; Audio
+      </button>
+
+      <button type="button" class="admin-tab-btn" data-tab="tabGuestGen" style="border-top-color: #25D366; color: #72ECA2;">
+        <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+        💌 Generator Tamu
+      </button>
+
+      <button type="button" class="admin-tab-btn" data-tab="tabBukuRawuh" style="border-top-color: #E5C77A; color: #FFE6A3;">
+        <svg viewBox="0 0 24 24"><path d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 4h5v8l-2.5-1.5L6 12V4z"/></svg>
+        📖 Buku Rawuh (Data Asli)
+      </button>
+    </nav>
+
+    <!-- ======================================================================
+         TAB 1: DATA MEMPELAI
+         ====================================================================== -->
+    <section id="tabMempelai" class="admin-tab-panel is-active">
+      <div class="adm-grid-2">
+        <!-- Mempelai Pria -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+              Mempelai Pria (Raden Kamajaya)
+            </h2>
+          </div>
+
+          <div class="adm-form-group">
+            <label class="adm-label">Nama Lengkap &amp; Gelar <span class="req">*</span></label>
+            <input type="text" id="cfgPriaNamaLengkap" class="adm-input" placeholder="Raden Fernando Pratama, S.T.">
+          </div>
+
+          <div class="adm-grid-2">
+            <div class="adm-form-group">
+              <label class="adm-label">Nama Panggilan <span class="req">*</span></label>
+              <input type="text" id="cfgPriaNamaPanggilan" class="adm-input" placeholder="Fernando">
+            </div>
+            <div class="adm-form-group">
+              <label class="adm-label">Urutan / Gelar Putra</label>
+              <input type="text" id="cfgPriaGelar" class="adm-input" placeholder="Putra Pertama">
+            </div>
+          </div>
+
+          <div class="adm-form-group">
+            <label class="adm-label">Nama Orang Tua (Ayah &amp; Ibu) <span class="req">*</span></label>
+            <input type="text" id="cfgPriaOrangTua" class="adm-input" placeholder="Bapak Ir. H. Bambang Wijaya &amp; Ibu Hj. Siti Rahayu">
+          </div>
+
+          <div class="adm-form-group">
+            <label class="adm-label">Akun Instagram (tanpa @)</label>
+            <input type="text" id="cfgPriaInstagram" class="adm-input" placeholder="fernandopratama">
+          </div>
+
+          <div class="adm-form-group">
+            <label class="adm-label">Berkas / URL Foto Avatar</label>
+            <input type="text" id="cfgPriaFoto" class="adm-input" placeholder="assets/images/wayang-pria.svg">
+            <div class="adm-help">Dapat menggunakan siluet bawaan wayang atau link foto pribadi.</div>
+          </div>
+
+          <div class="adm-form-group">
+            <label class="adm-label">Deskripsi / Falsafah Jiwa</label>
+            <textarea id="cfgPriaDeskripsi" class="adm-textarea" placeholder="Seorang pria yang memegang teguh nilai kesantunan..."></textarea>
+          </div>
+        </div>
+
+        <!-- Mempelai Wanita -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+              Mempelai Wanita (Dewi Kamaratih)
+            </h2>
+          </div>
+
+          <div class="adm-form-group">
+            <label class="adm-label">Nama Lengkap &amp; Gelar <span class="req">*</span></label>
+            <input type="text" id="cfgWanitaNamaLengkap" class="adm-input" placeholder="Raden Ayu Liahne Kusumaningrum, S.Psi.">
+          </div>
+
+          <div class="adm-grid-2">
+            <div class="adm-form-group">
+              <label class="adm-label">Nama Panggilan <span class="req">*</span></label>
+              <input type="text" id="cfgWanitaNamaPanggilan" class="adm-input" placeholder="Liahne">
+            </div>
+            <div class="adm-form-group">
+              <label class="adm-label">Urutan / Gelar Putri</label>
+              <input type="text" id="cfgWanitaGelar" class="adm-input" placeholder="Putri Kedua">
+            </div>
+          </div>
+
+          <div class="adm-form-group">
+            <label class="adm-label">Nama Orang Tua (Ayah &amp; Ibu) <span class="req">*</span></label>
+            <input type="text" id="cfgWanitaOrangTua" class="adm-input" placeholder="Bapak Dr. H. Soedirman Hadiningrat &amp; Ibu Hj. Endang Sulastri">
+          </div>
+
+          <div class="adm-form-group">
+            <label class="adm-label">Akun Instagram (tanpa @)</label>
+            <input type="text" id="cfgWanitaInstagram" class="adm-input" placeholder="liahnekusuma">
+          </div>
+
+          <div class="adm-form-group">
+            <label class="adm-label">Berkas / URL Foto Avatar</label>
+            <input type="text" id="cfgWanitaFoto" class="adm-input" placeholder="assets/images/wayang-wanita.svg">
+            <div class="adm-help">Dapat menggunakan siluet bawaan wayang atau link foto pribadi.</div>
+          </div>
+
+          <div class="adm-form-group">
+            <label class="adm-label">Deskripsi / Falsafah Jiwa</label>
+            <textarea id="cfgWanitaDeskripsi" class="adm-textarea" placeholder="Wanita berhati lembut, anggun dalam tutur kata dan laku..."></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TAB 2: JADWAL ACARA & BARCODE GOOGLE MAPS
+         ====================================================================== -->
+    <section id="tabAcara" class="admin-tab-panel">
+      <!-- Target Countdown -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">Target Hitung Mundur (Countdown Timer)</h2>
+        </div>
+        <div class="adm-form-group">
+          <label class="adm-label">Tanggal &amp; Waktu Dimulainya Acara</label>
+          <input type="text" id="cfgCountdownTarget" class="adm-input" placeholder="2026-10-24T08:00:00+07:00">
+          <div class="adm-help">Format ISO: YYYY-MM-DDTHH:MM:SS+07:00 (Contoh: 2026-10-24T08:00:00+07:00)</div>
+        </div>
+      </div>
+
+      <div class="adm-grid-2">
+        <!-- Akad Nikah -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">Adicara I: Akad Nikah / Ijab Kabul</h2>
+          </div>
+          <div class="adm-form-group">
+            <label class="adm-label">Judul Sesi</label>
+            <input type="text" id="cfgAkadJudul" class="adm-input" placeholder="Ijab Kabul / Akad Nikah">
+          </div>
+          <div class="adm-grid-2">
+            <div class="adm-form-group">
+              <label class="adm-label">Hari &amp; Pasaran</label>
+              <input type="text" id="cfgAkadHari" class="adm-input" placeholder="Sabtu Legi">
+            </div>
+            <div class="adm-form-group">
+              <label class="adm-label">Tanggal Lengkap</label>
+              <input type="text" id="cfgAkadTanggal" class="adm-input" placeholder="24 Oktober 2026">
+            </div>
+          </div>
+          <div class="adm-form-group">
+            <label class="adm-label">Waktu / Jam Pelaksanaan</label>
+            <input type="text" id="cfgAkadWaktu" class="adm-input" placeholder="08.00 - 10.00 WIB">
+          </div>
+          <div class="adm-form-group">
+            <label class="adm-label">Nama Tempat / Gedung</label>
+            <input type="text" id="cfgAkadTempat" class="adm-input" placeholder="Pendopo Agung Royal Ambarrukmo">
+          </div>
+          <div class="adm-form-group">
+            <label class="adm-label">Alamat Lengkap Tempat</label>
+            <textarea id="cfgAkadAlamat" class="adm-textarea" placeholder="Jl. Laksda Adisucipto No.81, Ambarukmo, Sleman, D.I. Yogyakarta"></textarea>
+          </div>
+          <div class="adm-form-group">
+            <label class="adm-label">Tautan Google Maps</label>
+            <input type="url" id="cfgAkadGmapsUrl" class="adm-input" placeholder="https://maps.google.com/?q=...">
+          </div>
+        </div>
+
+        <!-- Resepsi -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">Adicara II: Pahargyan / Resepsi</h2>
+          </div>
+          <div class="adm-form-group">
+            <label class="adm-label">Judul Sesi</label>
+            <input type="text" id="cfgResepsiJudul" class="adm-input" placeholder="Pahargyan Temanten / Resepsi">
+          </div>
+          <div class="adm-grid-2">
+            <div class="adm-form-group">
+              <label class="adm-label">Hari &amp; Pasaran</label>
+              <input type="text" id="cfgResepsiHari" class="adm-input" placeholder="Sabtu Legi">
+            </div>
+            <div class="adm-form-group">
+              <label class="adm-label">Tanggal Lengkap</label>
+              <input type="text" id="cfgResepsiTanggal" class="adm-input" placeholder="24 Oktober 2026">
+            </div>
+          </div>
+          <div class="adm-form-group">
+            <label class="adm-label">Waktu / Jam Pelaksanaan</label>
+            <input type="text" id="cfgResepsiWaktu" class="adm-input" placeholder="11.00 - 14.00 WIB">
+          </div>
+          <div class="adm-form-group">
+            <label class="adm-label">Nama Tempat / Gedung</label>
+            <input type="text" id="cfgResepsiTempat" class="adm-input" placeholder="Bale Mangunharjo, Royal Ambarrukmo">
+          </div>
+          <div class="adm-form-group">
+            <label class="adm-label">Alamat Lengkap Tempat</label>
+            <textarea id="cfgResepsiAlamat" class="adm-textarea" placeholder="Jl. Laksda Adisucipto No.81, Ambarukmo, Sleman, D.I. Yogyakarta"></textarea>
+          </div>
+          <div class="adm-form-group">
+            <label class="adm-label">Tautan Google Maps</label>
+            <input type="url" id="cfgResepsiGmapsUrl" class="adm-input" placeholder="https://maps.google.com/?q=...">
+          </div>
+        </div>
+      </div>
+
+      <!-- BARCODE GOOGLE MAPS CARD CONFIGURATION (PENGGANTI QRIS) -->
+      <div class="admin-card" style="border: 1.5px solid var(--color-gold-prada);">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            Barcode Navigasi Google Maps (Pengganti Barcode QRIS)
+          </h2>
+          <div>
+            <label style="cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 0.82rem; color: var(--color-gold-light);">
+              <input type="checkbox" id="cfgBarcodeTampilkan" checked> Tampilkan di Undangan
+            </label>
+          </div>
+        </div>
+
+        <p class="admin-card-desc">
+          Barcode QR Code ini menggantikan fungsi QRIS. Tamu dapat memindai barcode menggunakan kamera ponsel pintar mereka untuk membuka rute navigasi Google Maps langsung ke sasana pernikahan.
+        </p>
+
+        <div class="adm-grid-2" style="margin-top: 16px;">
+          <div>
+            <div class="adm-form-group">
+              <label class="adm-label">Judul Kartu Barcode</label>
+              <input type="text" id="cfgBarcodeJudul" class="adm-input" placeholder="Pindai Barcode Google Maps">
+            </div>
+            <div class="adm-form-group">
+              <label class="adm-label">Tautan URL Google Maps (Akan di-generate otomatis jadi QR Code)</label>
+              <input type="url" id="cfgBarcodeUrl" class="adm-input" placeholder="https://maps.google.com/?q=Pendopo+Agung+Royal+Ambarrukmo">
+              <div class="adm-help">Setiap perubahan URL di atas akan seketika memperbarui gambar barcode di samping kanan.</div>
+            </div>
+            <div class="adm-form-group">
+              <label class="adm-label">Petunjuk Pemindaian (Deskripsi Singkat)</label>
+              <textarea id="cfgBarcodeKet" class="adm-textarea" placeholder="Arahkan kodhak / kamera ponsel panjenengan dhateng kode barcode ing ngandhap menika..."></textarea>
+            </div>
+          </div>
+
+          <!-- Live QR Code Preview Box -->
+          <div>
+            <div class="adm-qr-preview-box">
+              <div class="adm-qr-img-wrap">
+                <img id="admQrPreviewImg" src="" alt="Pratinjau Barcode Google Maps">
+              </div>
+              <div class="adm-qr-info">
+                <h4>Pratinjau Barcode Aktif</h4>
+                <p>QR Code ini terhubung langsung ke tautan navigasi Google Maps tempat pernikahan Anda.</p>
+                <span class="guest-badge vip">Siap Scan Ponsel</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TAB 3: AYAT & MUTIARA HIKMAH
+         ====================================================================== -->
+    <section id="tabQuotes" class="admin-tab-panel">
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">Ayat Suci &amp; Falsafah Tresna</h2>
+        </div>
+
+        <div class="adm-form-group">
+          <label class="adm-label">Teks Ayat Suci / Kutipan Utama</label>
+          <textarea id="cfgQuotesTeks" class="adm-textarea" rows="4" placeholder="Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu..."></textarea>
+        </div>
+
+        <div class="adm-grid-2">
+          <div class="adm-form-group">
+            <label class="adm-label">Sumber Kutipan / Ayat</label>
+            <input type="text" id="cfgQuotesSumber" class="adm-input" placeholder="QS. Ar-Rum: 21">
+          </div>
+          <div class="adm-form-group">
+            <label class="adm-label">Falsafah Budaya Jawa</label>
+            <input type="text" id="cfgQuotesFalsafah" class="adm-input" placeholder="Cakra Manggilingan Tresna — Manunggaling Roso...">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TAB 4: KISAH CINTA (KIDUNG TRESNA)
+         ====================================================================== -->
+    <section id="tabKisah" class="admin-tab-panel">
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">Kidung Tresna (Timeline Perjalanan Cinta)</h2>
+          <button type="button" id="btnAddKisah" class="adm-btn adm-btn-primary adm-btn-sm">+ Tambah Momen</button>
+        </div>
+        <p class="admin-card-desc">Tambahkan jejak langkah pertemuan, ikrar janji, hingga prosesi pernikahan suci.</p>
+
+        <div id="kisahRepeater" style="margin-top: 16px;">
+          <!-- Populated dynamically via admin.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TAB 5: GALERI FOTO
+         ====================================================================== -->
+    <section id="tabGaleri" class="admin-tab-panel">
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">Galeri Katresnan (Dokumentasi Foto)</h2>
+          <button type="button" id="btnAddGaleri" class="adm-btn adm-btn-primary adm-btn-sm">+ Tambah Foto</button>
+        </div>
+        <p class="admin-card-desc">Masukkan tautan URL foto prewedding atau dokumentasi pengantin (mendukung URL gambar publik Unsplash, Cloudinary, Imgur, atau assets lokal).</p>
+
+        <div id="galeriRepeater" style="margin-top: 16px;">
+          <!-- Populated dynamically via admin.js -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TAB 6: KADO & REKENING BANK
+         ====================================================================== -->
+    <section id="tabHadiah" class="admin-tab-panel">
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">Tandha Katresnan (Kado Digital &amp; Rekening Bank)</h2>
+          <button type="button" id="btnAddRekening" class="adm-btn adm-btn-primary adm-btn-sm">+ Tambah Rekening</button>
+        </div>
+
+        <div class="adm-form-group">
+          <label class="adm-label">Kalimat Pengantar Hadiah Digital</label>
+          <textarea id="cfgHadiahDesc" class="adm-textarea" rows="2" placeholder="Doa restu panjenengan sedaya sampun dados berkah..."></textarea>
+        </div>
+
+        <div id="rekeningRepeater">
+          <!-- Populated dynamically via admin.js -->
+        </div>
+      </div>
+
+      <!-- Kado Fisik -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">Pengiriman Kado Fisik</h2>
+        </div>
+
+        <div class="adm-grid-2">
+          <div class="adm-form-group">
+            <label class="adm-label">Nama Penerima</label>
+            <input type="text" id="cfgKadoPenerima" class="adm-input" placeholder="Liahne &amp; Fernando">
+          </div>
+          <div class="adm-form-group">
+            <label class="adm-label">Nomor Telepon / WhatsApp</label>
+            <input type="text" id="cfgKadoTelepon" class="adm-input" placeholder="0812-3456-7890">
+          </div>
+        </div>
+
+        <div class="adm-form-group">
+          <label class="adm-label">Alamat Lengkap Pengiriman</label>
+          <textarea id="cfgKadoAlamat" class="adm-textarea" placeholder="Komplek Bale Asri No. 12, Caturtunggal, Depok, Sleman, D.I. Yogyakarta 55281"></textarea>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TAB 7: RSVP & MUSIK
+         ====================================================================== -->
+    <section id="tabAudioRsvp" class="admin-tab-panel">
+      <div class="adm-grid-2">
+        <!-- RSVP -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">Konfirmasi Kehadiran (RSVP)</h2>
+          </div>
+
+          <div class="adm-form-group">
+            <label class="adm-label">Nomor WhatsApp Penerima Konfirmasi <span class="req">*</span></label>
+            <input type="text" id="cfgRsvpWa" class="adm-input" placeholder="6281234567890">
+            <div class="adm-help">Format nomor internasional diawali 62 tanpa spasi atau tanda hubung.</div>
+          </div>
+
+          <div class="adm-form-group">
+            <label class="adm-label">Pesan Pembuka Default</label>
+            <textarea id="cfgRsvpPesan" class="adm-textarea" placeholder="Sugeng rawuh! Kula ngaturaken matur nuwun inggil serat sedhahanipun."></textarea>
+          </div>
+        </div>
+
+        <!-- Audio -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">Musik Latar Belakang (Gamelan / MP3)</h2>
+          </div>
+
+          <div class="adm-form-group">
+            <label class="adm-label">Judul Gending / Lagu</label>
+            <input type="text" id="cfgAudioJudul" class="adm-input" placeholder="Wonderful Gamelan Indonesia Traditional Music">
+          </div>
+
+          <div class="adm-form-group">
+            <label class="adm-label">Mode Pemutar Audio</label>
+            <select id="cfgAudioMode" class="adm-select">
+              <option value="file">File MP3 Audio (assets/audio/gamelan.mp3)</option>
+              <option value="synthesizer">Synthesizer Gamelan Slendro (Web Audio API Mandiri Rp0)</option>
+            </select>
+          </div>
+
+          <div class="adm-form-group">
+            <label class="adm-label">Lokasi / URL Berkas MP3</label>
+            <input type="text" id="cfgAudioSrc" class="adm-input" placeholder="assets/audio/gamelan.mp3">
+            <div class="adm-help">Jika file audio tidak ditemukan, sistem otomatis beralih ke synthesizer gamelan mandiri.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TAB 8: GENERATOR TAMU UNDANGAN ("ganerate tamunya jangan lupa")
+         ====================================================================== -->
+    <section id="tabGuestGen" class="admin-tab-panel">
+      <!-- Domain Base URL Setting -->
+      <div class="admin-card" style="border: 1.5px solid #25D366;">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title" style="color: #72ECA2;">
+            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            Tautan Dasar Website Undangan (Domain URL)
+          </h2>
+        </div>
+        <div class="adm-form-group">
+          <label class="adm-label">URL Undangan Pernikahan Anda</label>
+          <input type="url" id="guestBaseUrl" class="adm-input" placeholder="https://liahne-fernando.vercel.app/index.html">
+          <div class="adm-help">Otomatis mendeteksi domain tempat undangan di-hosting. Jika sudah memiliki domain kustom (misal: <code>https://liahnefernando.com/</code>), masukkan di sini agar link yang dibagikan tepat.</div>
+        </div>
+      </div>
+
+      <!-- Kustomisasi Template WhatsApp -->
+      <div class="admin-card">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">Kustomisasi Pesan Pengantar WhatsApp</h2>
+        </div>
+        <p class="admin-card-desc">Variabel yang tersedia: <code>{nama}</code>, <code>{kategori}</code>, <code>{mempelai}</code>, <code>{tanggal}</code>, <code>{tempat}</code>, <code>{link}</code>.</p>
+        <div class="adm-form-group">
+          <textarea id="waTemplateText" class="adm-textarea" rows="6" placeholder="Ketik template pesan WhatsApp..."></textarea>
+        </div>
+      </div>
+
+      <div class="adm-grid-2">
+        <!-- Generator Satuan (Single Guest) -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">1. Generator Link Tamu Satuan</h2>
+          </div>
+
+          <div class="adm-form-group">
+            <label class="adm-label">Nama Tamu Undangan <span class="req">*</span></label>
+            <input type="text" id="guestSingleName" class="adm-input" placeholder="Bapak Joko Santoso &amp; Keluarga">
+          </div>
+
+          <div class="adm-grid-2">
+            <div class="adm-form-group">
+              <label class="adm-label">Kategori / Badge Tamu</label>
+              <select id="guestSingleCategory" class="adm-select">
+                <option value="VIP">VIP</option>
+                <option value="Keluarga Besar">Keluarga Besar</option>
+                <option value="Rekan Kerja">Rekan Kerja</option>
+                <option value="Sahabat Karib">Sahabat Karib</option>
+                <option value="Tamu Kehormatan">Tamu Kehormatan</option>
+                <option value="Tamu Undangan" selected>Tamu Undangan</option>
+              </select>
+            </div>
+            <div class="adm-form-group">
+              <label class="adm-label">Nomor WhatsApp (Opsional)</label>
+              <input type="text" id="guestSinglePhone" class="adm-input" placeholder="08123456789">
+            </div>
+          </div>
+
+          <div class="adm-form-group">
+            <label class="adm-label">Hasil Tautan Khusus Tamu</label>
+            <input type="text" id="singleGuestLinkResult" class="adm-input" readonly style="font-weight:600; color:var(--color-gold-light); background:#17110C;">
+          </div>
+
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px;">
+            <button type="button" id="btnCopySingleLink" class="adm-btn adm-btn-primary adm-btn-sm">
+              <svg viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+              Salin Tautan
+            </button>
+            <button type="button" id="btnSendSingleWa" class="adm-btn adm-btn-success adm-btn-sm">
+              <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+              Kirim via WhatsApp
+            </button>
+            <a id="btnTestSingleLink" href="#" target="_blank" class="adm-btn adm-btn-outline adm-btn-sm">
+              Buka Undangan Tamu Ini
+            </a>
+          </div>
+
+          <!-- WA Message Preview -->
+          <div style="margin-top: 16px;">
+            <label class="adm-label">Pratinjau Teks WhatsApp:</label>
+            <pre id="singleGuestWaPreview" style="background:#120D09; border:1px solid rgba(184,142,75,0.2); padding:12px; border-radius:var(--radius-sm); font-size:0.75rem; color:#E3DAC9; white-space:pre-wrap; max-height:140px; overflow-y:auto;"></pre>
+          </div>
+        </div>
+
+        <!-- Generator Massal (Batch Guest) - Super Mudah -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <h2 class="admin-card-title">2. Generator Tamu Massal (Batch) &bull; Super Cepat</h2>
+          </div>
+          <p class="admin-card-desc">
+            Masukkan daftar nama tamu (1 nama per baris). Anda bebas menempel langsung dari WhatsApp, Excel, Word, atau mengunggah berkas CSV/TXT.
+          </p>
+
+          <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px;">
+            <button type="button" id="btnLoadSampleGuests" class="adm-btn adm-btn-outline adm-btn-sm" title="Isi otomatis contoh daftar nama">
+              💡 Pasang Contoh Nama
+            </button>
+            <button type="button" id="btnUploadGuestFile" class="adm-btn adm-btn-outline adm-btn-sm" title="Impor daftar nama dari file TXT atau CSV">
+              📁 Unggah File CSV / TXT
+            </button>
+            <button type="button" id="btnCleanGuestText" class="adm-btn adm-btn-outline adm-btn-sm" title="Hapus nomor urut dan simbol otomatis">
+              🧹 Rapikan Format Teks
+            </button>
+            <button type="button" id="btnClearGuestText" class="adm-btn adm-btn-danger adm-btn-sm" title="Kosongkan kolom input">
+              🗑️ Kosongkan
+            </button>
+            <input type="file" id="guestBatchFileInput" accept=".csv,.txt,.tsv" class="adm-hidden-file">
+          </div>
+
+          <div class="adm-grid-2">
+            <div class="adm-form-group">
+              <label class="adm-label">Kategori Bawaan untuk Semua Tamu</label>
+              <select id="guestBatchDefaultCategory" class="adm-select">
+                <option value="Tamu Undangan" selected>Tamu Undangan</option>
+                <option value="VIP">VIP</option>
+                <option value="Keluarga Besar">Keluarga Besar</option>
+                <option value="Rekan Kerja">Rekan Kerja</option>
+                <option value="Sahabat Karib">Sahabat Karib</option>
+              </select>
+            </div>
+            <div class="adm-form-group">
+              <label class="adm-label">Tips Format Bebas</label>
+              <div style="font-size: 0.76rem; color: var(--admin-text-muted); padding: 8px 12px; background: rgba(18,13,9,0.5); border-radius: var(--radius-sm); border: 1px dashed rgba(184,142,75,0.25);">
+                Mendukung teks biasa (contoh: <code>Budi Santoso</code>) atau format lengkap: <code>Nama | Kategori | Nomor HP</code>
+              </div>
+            </div>
+          </div>
+
+          <div class="adm-form-group">
+            <label class="adm-label">Daftar Nama Tamu (Satu Nama per Baris)</label>
+            <textarea id="guestBatchText" class="adm-textarea" rows="6" placeholder="Budi Santoso&#10;Siti Rahayu&#10;Keluarga Bpk. Bambang | VIP&#10;Dimas Suryo | Sahabat | 081234567890"></textarea>
+          </div>
+
+          <button type="button" id="btnGenBatchGuests" class="adm-btn adm-btn-primary" style="width: 100%; font-size: 0.88rem; padding: 12px;">
+            ⚡ Generate Semua Tautan Tamu Sekaligus
+          </button>
+        </div>
+      </div>
+
+      <!-- Batch Result Table with Tracker & Progress -->
+      <div class="admin-card" style="margin-top: 24px;">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">
+            Daftar &amp; Pelacakan Pengiriman Undangan
+            <span id="batchGuestCount" class="guest-badge vip" style="margin-left: 8px;">0 Tamu</span>
+          </h2>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button type="button" id="btnCopyAllWa" class="adm-btn adm-btn-outline adm-btn-sm">
+              📋 Salin Semua Broadcast WA
+            </button>
+            <button type="button" id="btnExportCsv" class="adm-btn adm-btn-outline adm-btn-sm">
+              📊 Unduh CSV (Excel)
+            </button>
+            <button type="button" id="btnExportTxt" class="adm-btn adm-btn-outline adm-btn-sm">
+              📄 Unduh TXT
+            </button>
+            <button type="button" id="btnMarkAllSent" class="adm-btn adm-btn-outline adm-btn-sm" title="Tandai semua tamu sudah dikirimi">
+              ✅ Tandai Semua Terkirim
+            </button>
+            <button type="button" id="btnClearBatchTable" class="adm-btn adm-btn-danger adm-btn-sm" title="Hapus daftar tamu hasil generate">
+              🗑️ Bersihkan Tabel
+            </button>
+          </div>
+        </div>
+
+        <!-- Progres Pengiriman Visual Tracker -->
+        <div class="guest-progress-box">
+          <div class="guest-progress-info">
+            <span id="guestProgressText" class="guest-progress-text">Progres Pengiriman: 0 dari 0 tamu terkirim (0%)</span>
+            <div class="guest-progress-bar">
+              <div id="guestProgressFill" class="guest-progress-fill"></div>
+            </div>
+          </div>
+          <div style="font-size: 0.75rem; color: var(--admin-text-muted);">
+            Klik tombol status atau tombol <strong>WA / Salin Pesan</strong> untuk otomatis menandai terkirim.
+          </div>
+        </div>
+
+        <!-- Filter & Search Toolbar -->
+        <div class="guest-filter-row">
+          <div class="guest-filter-pills">
+            <button type="button" class="guest-filter-btn is-active" data-filter="all">Semua (<span id="countFilterAll">0</span>)</button>
+            <button type="button" class="guest-filter-btn" data-filter="unsent">⏳ Belum Dikirim (<span id="countFilterUnsent">0</span>)</button>
+            <button type="button" class="guest-filter-btn" data-filter="sent">✅ Sudah Dikirim (<span id="countFilterSent">0</span>)</button>
+          </div>
+          <div>
+            <input type="text" id="guestSearchInput" class="adm-input guest-search-input" placeholder="🔍 Cari nama tamu...">
+          </div>
+        </div>
+
+        <div class="guest-table-wrap">
+          <table class="guest-table">
+            <thead>
+              <tr>
+                <th style="width: 40px;">No</th>
+                <th>Nama Tamu</th>
+                <th>Kategori</th>
+                <th style="width: 130px;">Status Kirim</th>
+                <th>Tautan Khusus Undangan</th>
+                <th style="width: 220px;">Aksi Cepat</th>
+              </tr>
+            </thead>
+            <tbody id="batchGuestTableBody">
+              <tr>
+                <td colspan="6" style="text-align: center; color: var(--admin-text-muted); padding: 30px;">
+                  Belum ada data tamu yang digenerate. Masukkan nama tamu pada formulir di atas lalu klik "Generate Semua Tautan Tamu Sekaligus".
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         TAB 9: BUKU RAWUH & KONFIRMASI TAMU (DATA ASLI)
+         ====================================================================== -->
+    <section id="tabBukuRawuh" class="admin-tab-panel">
+      <div class="admin-card" style="border: 1.5px solid var(--color-gold-prada);">
+        <div class="admin-card-header">
+          <h2 class="admin-card-title">
+            <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+            Statistik Kehadiran &amp; Buku Rawuh (Data Asli)
+          </h2>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button type="button" id="btnRefreshBukuRawuh" class="adm-btn adm-btn-outline adm-btn-sm">🔄 Muat Ulang</button>
+            <button type="button" id="btnExportBukuRawuhCsv" class="adm-btn adm-btn-primary adm-btn-sm">📊 Unduh CSV (Excel)</button>
+            <button type="button" id="btnClearBukuRawuh" class="adm-btn adm-btn-danger adm-btn-sm">🗑️ Reset Buku</button>
+          </div>
+        </div>
+
+        <div class="adm-grid-3" style="margin-top: 16px;">
+          <div class="adm-card" style="background: rgba(18, 13, 9, 0.6); padding: 16px; margin: 0; text-align: center;">
+            <div style="font-size: 0.72rem; color: var(--admin-text-muted); text-transform: uppercase;">Total Konfirmasi Masuk</div>
+            <div id="statTotalRsvp" style="font-family: var(--font-title); font-size: 1.8rem; font-weight: 700; color: var(--color-gold-light); margin-top: 4px;">0</div>
+          </div>
+          <div class="adm-card" style="background: rgba(18, 13, 9, 0.6); padding: 16px; margin: 0; text-align: center;">
+            <div style="font-size: 0.72rem; color: var(--admin-text-muted); text-transform: uppercase;">Pasti Rawuh (Hadir)</div>
+            <div id="statHadirRsvp" style="font-family: var(--font-title); font-size: 1.8rem; font-weight: 700; color: #25D366; margin-top: 4px;">0 Tamu</div>
+            <div id="statTotalPax" style="font-size: 0.75rem; color: rgba(250,246,240,0.6); margin-top: 2px;">(0 Porsi / Pax)</div>
+          </div>
+          <div class="adm-card" style="background: rgba(18, 13, 9, 0.6); padding: 16px; margin: 0; text-align: center;">
+            <div style="font-size: 0.72rem; color: var(--admin-text-muted); text-transform: uppercase;">Mboten Rawuh / Ragu</div>
+            <div id="statAbsenRsvp" style="font-family: var(--font-title); font-size: 1.8rem; font-weight: 700; color: var(--admin-danger); margin-top: 4px;">0</div>
+          </div>
+        </div>
+
+        <p class="admin-card-desc" style="margin-top: 20px;">
+          Di bawah ini adalah data asli dari kiriman formulir RSVP &amp; doa restu yang diisi oleh para tamu undangan secara nyata melalui website.
+        </p>
+
+        <div class="guest-table-wrap" style="margin-top: 14px;">
+          <table class="guest-table">
+            <thead>
+              <tr>
+                <th style="width: 40px;">No</th>
+                <th style="width: 140px;">Waktu Kirim</th>
+                <th>Nama Tamu</th>
+                <th>Status &amp; Jumlah</th>
+                <th>Doa &amp; Ucapan Restu</th>
+                <th style="width: 90px;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="bukuRawuhTableBody">
+              <tr>
+                <td colspan="6" style="text-align: center; color: var(--admin-text-muted); padding: 30px;">
+                  Belum ada ucapan atau konfirmasi dari tamu undangan.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========================================================================
+       TOAST FEEDBACK NOTICE
+       ======================================================================== -->
+  <div id="admToast" class="adm-toast" role="alert">
+    <svg viewBox="0 0 24 24" style="width:20px; height:20px; fill:var(--color-gold-light);"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+    <span id="admToastText">Perubahan berhasil disimpan!</span>
+  </div>
+
+  <!-- Scripts -->
+  <script src="assets/js/admin.js"></script>
+</body>
+</html>

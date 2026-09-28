@@ -1,0 +1,276 @@
+/* ==========================================================================
+   PAKELIRAN OPENING & GUNUNGAN TRANSITION — JAVANESE WAYANG HERITAGE
+   ========================================================================== */
+
+.pakeliran-cover {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-dark-surface);
+  overflow: hidden;
+  transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1),
+              visibility 1.2s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Background Texture of Traditional Kelir (White/Warm Cloth in Dark Room) */
+.pakeliran-backdrop {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 42%, 
+                rgba(255, 230, 160, 0.18) 0%, 
+                rgba(88, 56, 39, 0.45) 45%, 
+                rgba(21, 15, 11, 0.95) 85%);
+  pointer-events: none;
+}
+
+/* Blencong Lamp (Traditional Coconut Oil Lamp Glow) Effect */
+.blencong-light {
+  position: absolute;
+  top: 36%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 222, 130, 0.35) 0%, rgba(184, 142, 75, 0.15) 50%, transparent 75%);
+  filter: blur(28px);
+  animation: blencongFlicker 6s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes blencongFlicker {
+  0% { transform: translate(-50%, -50%) scale(0.92); opacity: 0.7; }
+  30% { transform: translate(-50%, -50%) scale(1.04); opacity: 0.95; }
+  50% { transform: translate(-50%, -50%) scale(0.98); opacity: 0.8; }
+  75% { transform: translate(-50%, -50%) scale(1.08); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.75; }
+}
+
+/* Stage Curtain Left & Right Wings (Kelir Parting Effect) */
+.kelir-wing {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 50.5%;
+  background: #18110D;
+  background-image: url('../images/batik-kawung.svg');
+  background-size: 100px 100px;
+  transition: transform 1.4s cubic-bezier(0.77, 0, 0.175, 1);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.kelir-wing-left {
+  left: 0;
+  box-shadow: 10px 0 35px rgba(0, 0, 0, 0.7);
+  border-right: 1px solid rgba(184, 142, 75, 0.3);
+}
+
+.kelir-wing-right {
+  right: 0;
+  box-shadow: -10px 0 35px rgba(0, 0, 0, 0.7);
+  border-left: 1px solid rgba(184, 142, 75, 0.3);
+}
+
+/* Content Container on Cover */
+.pakeliran-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 480px;
+  padding: var(--spacing-xl) var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: var(--color-text-light);
+  transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease;
+}
+
+/* Gunungan Graphic on Cover */
+.pakeliran-gunungan-wrap {
+  width: 190px;
+  height: 290px;
+  margin-bottom: var(--spacing-md);
+  position: relative;
+  transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 1s ease;
+}
+
+.pakeliran-gunungan-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.6));
+  animation: gununganGentleFloat 4s ease-in-out infinite alternate;
+}
+
+@keyframes gununganGentleFloat {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-8px); }
+}
+
+/* Heading & Couple Names on Cover */
+.pakeliran-badge {
+  font-family: var(--font-accent);
+  font-size: var(--text-xs);
+  letter-spacing: 0.3em;
+  color: var(--color-gold-light);
+  margin-bottom: var(--spacing-xs);
+  text-transform: uppercase;
+}
+
+.pakeliran-names {
+  font-family: var(--font-display);
+  font-size: 2.15rem;
+  line-height: 1.2;
+  color: #FFF6E5;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6), 0 0 25px rgba(223, 186, 115, 0.35);
+  margin-bottom: var(--spacing-md);
+}
+
+.pakeliran-names span {
+  display: inline-block;
+  color: var(--color-gold-light);
+  font-family: var(--font-title);
+  font-style: italic;
+  font-size: 1.6rem;
+  margin: 0 6px;
+}
+
+/* Guest Personalization Box */
+.guest-card {
+  background: rgba(35, 25, 19, 0.85);
+  border: 1px solid rgba(184, 142, 75, 0.5);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), inset 0 0 15px rgba(184, 142, 75, 0.12);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md) var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+  width: 90%;
+  max-width: 380px;
+  position: relative;
+}
+
+.guest-card-corner {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-color: var(--color-gold-prada);
+  border-style: solid;
+  pointer-events: none;
+}
+
+.guest-card-tl { top: 4px; left: 4px; border-width: 1.5px 0 0 1.5px; }
+.guest-card-tr { top: 4px; right: 4px; border-width: 1.5px 1.5px 0 0; }
+.guest-card-bl { bottom: 4px; left: 4px; border-width: 0 0 1.5px 1.5px; }
+.guest-card-br { bottom: 4px; right: 4px; border-width: 0 1.5px 1.5px 0; }
+
+.guest-label {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: rgba(250, 246, 240, 0.7);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.guest-name {
+  font-family: var(--font-title);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-gold-light);
+  letter-spacing: 0.05em;
+}
+
+/* Open Invitation Button */
+.btn-buka-undangan {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #A17537 0%, #B88E4B 50%, #8E6527 100%);
+  color: #1A120E;
+  font-family: var(--font-accent);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 14px 34px;
+  border: 1.5px solid #FFDE82;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45), 0 0 20px var(--color-gold-glow);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-buka-undangan::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.45), transparent);
+  transform: rotate(25deg);
+  animation: buttonShine 3.5s infinite;
+}
+
+@keyframes buttonShine {
+  0% { left: -60%; }
+  35%, 100% { left: 140%; }
+}
+
+.btn-buka-undangan:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5), 0 0 35px var(--shadow-gold-lg);
+  color: #0E0A08;
+}
+
+.btn-buka-undangan svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+/* ==========================================================================
+   OPENING TRANSITION TRIGGERED STATE (.is-opened)
+   ========================================================================== */
+
+.pakeliran-cover.is-opening {
+  pointer-events: none;
+}
+
+/* Kelir Parting Transition (Membuka Panggung Wayang) */
+.pakeliran-cover.is-opening .kelir-wing-left {
+  transform: translateX(-102%);
+}
+
+.pakeliran-cover.is-opening .kelir-wing-right {
+  transform: translateX(102%);
+}
+
+/* Gunungan Elevates Upwards and Scales gracefully */
+.pakeliran-cover.is-opening .pakeliran-gunungan-wrap {
+  transform: translateY(-120px) scale(1.15);
+  opacity: 0;
+}
+
+/* UI Elements Fade Out */
+.pakeliran-cover.is-opening .pakeliran-badge,
+.pakeliran-cover.is-opening .pakeliran-names,
+.pakeliran-cover.is-opening .guest-card,
+.pakeliran-cover.is-opening .btn-buka-undangan {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+/* Cover Overlay unmount */
+.pakeliran-cover.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+}

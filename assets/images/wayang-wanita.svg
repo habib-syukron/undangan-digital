@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 520" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="femGoldGrad" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E5C77A"/>
+      <stop offset="50%" stop-color="#B88E4B"/>
+      <stop offset="100%" stop-color="#8E6527"/>
+    </linearGradient>
+    <filter id="femDropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="-2" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <g filter="url(#femDropShadow)">
+    <!-- Main Silhouette of Dewi Kamaratih (Graceful Female Figure, facing Left) -->
+
+    <!-- Cempurit Tangan & Badan (Tangkai Wayang Kulit) -->
+    <path d="M195 240 L250 440" stroke="#8E6527" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M135 280 L90 460" stroke="#8E6527" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M165 360 L165 510" stroke="#8E6527" stroke-width="4" stroke-linecap="round"/>
+
+    <!-- Putri Hairbun / Gelung Bokor Mengkurep & Cunduk Mentul (Kembang Goyang) -->
+    <path d="M180 100 
+             C185 85, 195 70, 210 60 
+             C220 52, 230 50, 240 55 
+             C250 60, 252 75, 242 85 
+             C232 95, 215 102, 205 110
+             C215 115, 225 125, 225 135
+             C225 145, 215 155, 202 152
+             L195 158
+             C200 168, 198 178, 190 185
+             L180 185
+             L172 165
+             C162 160, 152 150, 152 138
+             C152 120, 165 105, 180 100 Z" 
+          fill="#1C140F" stroke="url(#femGoldGrad)" stroke-width="1.8"/>
+
+    <!-- Cunduk Mentul Emas Mekar di Sanggul -->
+    <g stroke="url(#femGoldGrad)" stroke-width="1.2">
+      <line x1="215" y1="65" x2="230" y2="40"/>
+      <circle cx="232" cy="38" r="4.5" fill="#FFE59E" stroke="#8E6527"/>
+      <line x1="205" y1="70" x2="215" y2="35"/>
+      <circle cx="217" cy="33" r="4" fill="#FFE59E" stroke="#8E6527"/>
+      <line x1="225" y1="65" x2="245" y2="48"/>
+      <circle cx="247" cy="46" r="3.5" fill="#FFE59E" stroke="#8E6527"/>
+    </g>
+
+    <!-- Profile Face (Feminine, Luruh, anggun menunduk ke arah pria) -->
+    <path d="M180 100 
+             C165 108, 148 118, 135 128
+             C128 134, 125 137, 130 140
+             C138 142, 142 142, 145 146
+             C148 149, 145 153, 150 156
+             C155 158, 165 156, 172 165" 
+          fill="#1C140F" stroke="url(#femGoldGrad)" stroke-width="1.8"/>
+
+    <!-- Mata Jahitan (Alus & Anggun) -->
+    <path d="M168 122 C160 120, 150 126, 148 130 C155 130, 162 126, 168 122 Z" fill="url(#femGoldGrad)"/>
+    <path d="M170 116 C158 114, 148 120, 144 124" stroke="url(#femGoldGrad)" stroke-width="1.5" stroke-linecap="round"/>
+
+    <!-- Giwang / Subang Telinga Putri Jawa -->
+    <circle cx="188" cy="142" r="4.5" fill="url(#femGoldGrad)" stroke="#1C140F"/>
+    <path d="M192 148 C198 152, 202 160, 196 166" fill="none" stroke="url(#femGoldGrad)" stroke-width="1.2"/>
+
+    <!-- Leher Jenjang & Kemben Keraton -->
+    <path d="M180 185 C175 205, 165 220, 160 240 C158 250, 162 265, 170 280 L185 275 C188 255, 190 230, 190 185 Z" 
+          fill="#1C140F" stroke="url(#femGoldGrad)" stroke-width="1.5"/>
+
+    <!-- Kalung Pengantin Putri & Rantai Emas -->
+    <path d="M178 195 C168 205, 160 215, 155 230 C165 230, 175 220, 182 205 Z" fill="url(#femGoldGrad)"/>
+    <circle cx="168" cy="225" r="3.5" fill="#FFE59E" stroke="#8E6527" stroke-width="0.8"/>
+
+    <!-- Lengan Depan (Mengarah ke Kiri dengan Gerak Nyempurit Anggun) -->
+    <path d="M165 210 C145 220, 125 240, 115 265 L125 275 C135 255, 150 238, 170 225 Z" 
+          fill="#1C140F" stroke="url(#femGoldGrad)" stroke-width="1.5"/>
+    <path d="M115 265 C105 285, 102 310, 110 330 L120 325 C114 310, 116 290, 125 275 Z" 
+          fill="#1C140F" stroke="url(#femGoldGrad)" stroke-width="1.5"/>
+    <!-- Jari Tangan Putri Merak Nyempurit -->
+    <path d="M110 330 C105 338, 98 342, 100 348 C104 352, 110 348, 114 342 L120 325" 
+          fill="#1C140F" stroke="url(#femGoldGrad)" stroke-width="1.2"/>
+    <!-- Gelang Kana Emas -->
+    <rect x="126" y="235" width="14" height="6" rx="2" transform="rotate(-35 126 235)" fill="url(#femGoldGrad)"/>
+
+    <!-- Lengan Belakang Putri -->
+    <path d="M185 220 C200 235, 215 260, 220 290 L212 295 C206 270, 194 248, 180 232 Z" 
+          fill="#1C140F" stroke="url(#femGoldGrad)" stroke-width="1.2"/>
+
+    <!-- Pinggang & Stagen Kemben Emas -->
+    <path d="M188 275 L152 285 L155 298 L190 288 Z" fill="url(#femGoldGrad)"/>
+    <circle cx="170" cy="292" r="4.5" fill="#FFE59E" stroke="#8E6527" stroke-width="1"/>
+
+    <!-- Jarik Batik Bawahan Putri (Kain Panjang & Sumping Kemben) -->
+    <path d="M190 288 
+             C175 310, 150 325, 135 365 
+             C125 395, 140 435, 170 460 
+             C185 440, 200 405, 195 365 
+             L205 355 C210 330, 205 305, 190 288 Z" 
+          fill="#1C140F" stroke="url(#femGoldGrad)" stroke-width="2"/>
+
+    <!-- Selendang Sampur Melayang Lembut -->
+    <path d="M172 295 C155 335, 145 390, 170 445 C175 420, 168 370, 180 330 Z" 
+          fill="url(#femGoldGrad)" opacity="0.85"/>
+    <path d="M185 440 C175 455, 160 460, 145 455" stroke="url(#femGoldGrad)" stroke-width="1.5" fill="none"/>
+
+    <!-- Ornamen Garis Batik Emas pada Jarik Putri -->
+    <g stroke="url(#femGoldGrad)" stroke-width="0.8" opacity="0.75">
+      <line x1="185" y1="315" x2="155" y2="330"/>
+      <line x1="190" y1="335" x2="145" y2="355"/>
+      <line x1="192" y1="360" x2="138" y2="385"/>
+      <line x1="188" y1="390" x2="142" y2="415"/>
+      <line x1="184" y1="420" x2="155" y2="440"/>
+    </g>
+
+    <!-- Kaki & Gelang Kaki Emas (Binggel Putri) -->
+    <path d="M182 450 L185 480 L175 482 L172 452 Z" fill="#1C140F" stroke="url(#femGoldGrad)" stroke-width="1.2"/>
+    <rect x="173" y="475" width="13" height="4" rx="1" fill="url(#femGoldGrad)"/>
+    <path d="M185 482 C175 484, 165 486, 160 488 C162 493, 178 493, 188 488 Z" fill="#1C140F" stroke="url(#femGoldGrad)" stroke-width="1"/>
+  </g>
+</svg>
