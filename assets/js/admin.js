@@ -134,7 +134,8 @@ const DEFAULT_ADMIN_CONFIG = {
   },
   rsvp: {
     whatsappNumber: "6281234567890",
-    defaultPesan: "Sugeng rawuh! Kula ngaturaken matur nuwun inggil serat sedhahanipun."
+    defaultPesan: "Sugeng rawuh! Kula ngaturaken matur nuwun inggil serat sedhahanipun.",
+    googleSheetUrl: ""
   },
   audio: {
     judul: "Wonderful Gamelan Indonesia Traditional Music",
@@ -507,6 +508,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initActions();
   initGuestGenerator();
   initBukuRawuhManager();
+  initGsheetGuideModal();
 });
 
 // Toast notification
@@ -646,6 +648,7 @@ function populateForm(cfg) {
   // RSVP & Audio
   setVal('cfgRsvpWa', cfg.rsvp?.whatsappNumber);
   setVal('cfgRsvpPesan', cfg.rsvp?.defaultPesan);
+  setVal('cfgRsvpGsheetUrl', cfg.rsvp?.googleSheetUrl || '');
   setVal('cfgAudioJudul', cfg.audio?.judul);
   setVal('cfgAudioMode', cfg.audio?.mode || 'file');
   setVal('cfgAudioSrc', cfg.audio?.src || 'assets/audio/gamelan.mp3');
@@ -777,7 +780,8 @@ function extractFormData() {
   // RSVP & Audio
   cfg.rsvp = {
     whatsappNumber: getVal('cfgRsvpWa').replace(/[^0-9]/g, ''),
-    defaultPesan: getVal('cfgRsvpPesan')
+    defaultPesan: getVal('cfgRsvpPesan'),
+    googleSheetUrl: getVal('cfgRsvpGsheetUrl').trim()
   };
 
   cfg.audio = {
@@ -1690,12 +1694,25 @@ function escapeHtml(str) {
 }
 
 // ----------------------------------------------------------------------------
-// BUKU RAWUH & RSVP ATTENDANCE MANAGER (DATA ASLI)
+// BUKU RAWUH & RSVP ATTENDANCE MANAGER (DATA ASLI & GOOGLE SHEETS)
 // ----------------------------------------------------------------------------
+function getGsheetScriptUrl() {
+  return (currentConfig?.rsvp?.googleSheetUrl || document.getElementById('cfgRsvpGsheetUrl')?.value || '').trim();
+}
+
 function initBukuRawuhManager() {
   document.getElementById('btnRefreshBukuRawuh')?.addEventListener('click', () => {
-    renderBukuRawuhAdmin();
-    showToast('🔄 Data Buku Rawuh sampun kaanyari.');
+    const url = getGsheetScriptUrl();
+    if (url) {
+      syncBukuRawuhFromGSheet(true);
+    } else {
+      renderBukuRawuhAdmin();
+      showToast('🔄 Data Buku Rawuh sampun kaanyari.');
+    }
+  });
+
+  document.getElementById('btnSyncGsheet')?.addEventListener('click', () => {
+    syncBukuRawuhFromGSheet(true);
   });
 
   document.getElementById('btnExportBukuRawuhCsv')?.addEventListener('click', exportBukuRawuhToCsv);
@@ -1709,6 +1726,149 @@ function initBukuRawuhManager() {
   });
 
   renderBukuRawuhAdmin();
+
+  // Jika URL Google Sheet sudah dipasang, otomatis tarik sinkronisasi saat admin dibuka
+  if (getGsheetScriptUrl()) {
+    syncBukuRawuhFromGSheet(false);
+  }
+}
+
+async function syncBukuRawuhFromGSheet(showUserToast = true) {
+  const url = getGsheetScriptUrl();
+  if (!url) {
+    if (showUserToast) {
+      alert('Mangga lebetaken "URL Google Sheets Web App" rumiyin ing Tab 7 (RSVP) supados saged narik data online.');
+    }
+    return;
+  }
+
+  if (showUserToast) {
+    showToast('⏳ Nembé narik data saking Google Sheets...');
+  }
+
+  try {
+    const res = await fetch(url);
+    const json = await res.json();
+    if (json && json.status === 'success' && Array.isArray(json.data)) {
+      localStorage.setItem('wayang_invitation_wishes', JSON.stringify(json.data));
+      renderBukuRawuhAdmin();
+      if (showUserToast) {
+        showToast(`✨ Kasil narik ${json.data.length} data saking Google Sheets!`);
+      }
+    } else {
+      renderBukuRawuhAdmin();
+      if (showUserToast) {
+        showToast('ℹ️ Dereng wonten respon data saking Google Sheets.');
+      }
+    }
+  } catch (err) {
+    console.warn('GSheet sync error:', err);
+    renderBukuRawuhAdmin();
+    if (showUserToast) {
+      alert('Gagal nyambung dhateng Google Sheets: ' + err.message + '\nPriksa manawi URL sampun leres lan akses "Siapa saja (Anyone)".');
+    }
+  }
+}
+
+// ----------------------------------------------------------------------------
+// GOOGLE APPS SCRIPT GUIDE MODAL
+// ----------------------------------------------------------------------------
+const GSHEET_SCRIPT_SOURCE = `function doPost(e) {
+  var lock = LockService.getScriptLock();
+  lock.tryLock(10000);
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    if (sheet.getLastRow() === 0) {
+      sheet.appendRow(["Timestamp", "Waktu", "Nama Tamu", "Kehadiran", "Jumlah", "Doa & Pesan"]);
+      sheet.getRange(1, 1, 1, 6).setFontWeight("bold");
+    }
+    var data = {};
+    if (e && e.postData && e.postData.contents) {
+      try { data = JSON.parse(e.postData.contents); } catch (err) { data = e.parameter || {}; }
+    } else if (e && e.parameter) {
+      data = e.parameter;
+    }
+    var now = new Date();
+    var waktuStr = Utilities.formatDate(now, "Asia/Jakarta", "dd MMM yyyy, HH:mm 'WIB'");
+    var nama = (data.nama || "Tamu Undangan").toString().trim();
+    var kehadiran = (data.kehadiran || "hadir").toString().trim();
+    var jumlah = parseInt(data.jumlah, 10) || 1;
+    var pesan = (data.pesan || "").toString().trim();
+    sheet.appendRow([now.toISOString(), waktuStr, nama, kehadiran, jumlah, pesan]);
+    var response = { status: "success", message: "Data rawuh kasil kacathet." };
+    return ContentService.createTextOutput(JSON.stringify(response)).setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: error.toString() })).setMimeType(ContentService.MimeType.JSON);
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function doGet(e) {
+  try {
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    var rows = sheet.getDataRange().getValues();
+    var wishes = [];
+    for (var i = 1; i < rows.length; i++) {
+      var row = rows[i];
+      if (!row[2]) continue;
+      var timeVal = row[0];
+      var timeStamp = timeVal && !isNaN(new Date(timeVal).getTime()) ? new Date(timeVal).getTime() : Date.now();
+      wishes.push({
+        id: "wish_gsheet_" + i,
+        timestamp: timeStamp,
+        waktu: row[1] || "-",
+        nama: String(row[2]),
+        kehadiran: String(row[3] || "hadir"),
+        jumlah: parseInt(row[4], 10) || 1,
+        pesan: String(row[5] || "")
+      });
+    }
+    wishes.reverse();
+    return ContentService.createTextOutput(JSON.stringify({ status: "success", total: wishes.length, data: wishes })).setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({ status: "error", message: error.toString(), data: [] })).setMimeType(ContentService.MimeType.JSON);
+  }
+}`;
+
+function initGsheetGuideModal() {
+  const modal = document.getElementById('modalGsheetGuide');
+  const textarea = document.getElementById('gsheetScriptCode');
+  const btnOpen = document.getElementById('btnOpenGsheetGuide');
+  const btnClose = document.getElementById('btnCloseGsheetGuide');
+  const backdrop = document.getElementById('modalGsheetBackdrop');
+  const btnCopy = document.getElementById('btnCopyGsheetScript');
+
+  if (textarea) {
+    textarea.value = GSHEET_SCRIPT_SOURCE;
+  }
+
+  btnOpen?.addEventListener('click', () => {
+    if (modal) modal.style.display = 'flex';
+  });
+
+  const closeModal = () => {
+    if (modal) modal.style.display = 'none';
+  };
+
+  btnClose?.addEventListener('click', closeModal);
+  backdrop?.addEventListener('click', closeModal);
+
+  btnCopy?.addEventListener('click', () => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(GSHEET_SCRIPT_SOURCE).then(() => {
+        showToast('📋 Kode Google Apps Script kasil kasalin!');
+      }).catch(() => {
+        textarea?.select();
+        document.execCommand('copy');
+        showToast('📋 Kode kasil kasalin!');
+      });
+    } else {
+      textarea?.select();
+      document.execCommand('copy');
+      showToast('📋 Kode kasil kasalin!');
+    }
+  });
 }
 
 function getStoredRealWishes() {

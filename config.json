@@ -3,20 +3,20 @@
   "version": "1.0.0",
   "mempelai": {
     "pria": {
-      "namaLengkap": "Raden Fernando Pratama, S.T.",
-      "namaPanggilan": "Fernando",
-      "gelar": "Putra Pertama",
-      "orangTua": "Bapak Ir. H. Bambang Wijaya & Ibu Hj. Siti Rahayu",
-      "instagram": "fernandopratama",
+      "namaLengkap": "Komang Saputra",
+      "namaPanggilan": "Komang",
+      "gelar": "Putra Ketiga",
+      "orangTua": "Bapak Samsudin dan Ibu Kastimah (Almh)",
+      "instagram": "Komang Saputr",
       "foto": "assets/images/wayang-pria.svg",
       "deskripsi": "Seorang pria yang memegang teguh nilai kesantunan, berjiwa ksatria, dan setia membimbing bahtera cinta."
     },
     "wanita": {
-      "namaLengkap": "Raden Ayu Liahne Kusumaningrum, S.Psi.",
-      "namaPanggilan": "Liahne",
+      "namaLengkap": "Hidayatush Sholihah",
+      "namaPanggilan": "Hida",
       "gelar": "Putri Kedua",
-      "orangTua": "Bapak Dr. H. Soedirman Hadiningrat & Ibu Hj. Endang Sulastri",
-      "instagram": "liahnekusuma",
+      "orangTua": "Bapak Sriyanto dan Ibu Sutarmi",
+      "instagram": "hidayatshh",
       "foto": "assets/images/wayang-wanita.svg",
       "deskripsi": "Wanita berhati lembut, anggun dalam tutur kata dan laku, laksana Dewi Kamaratih pembawa ketenteraman jiwa."
     }
@@ -29,57 +29,57 @@
   "acara": {
     "akad": {
       "judul": "Ijab Kabul / Akad Nikah",
-      "hari": "Sabtu Legi",
-      "tanggal": "24 Oktober 2026",
-      "waktu": "08.00 - 10.00 WIB",
-      "tempat": "Pendopo Agung Royal Ambarrukmo",
-      "alamat": "Jl. Laksda Adisucipto No.81, Ambarukmo, Caturtunggal, Kec. Depok, Kabupaten Sleman, D.I. Yogyakarta",
-      "googleMapsUrl": "https://maps.google.com/?q=Pendopo+Agung+Royal+Ambarrukmo+Yogyakarta",
+      "hari": "Sabtu Pon",
+      "tanggal": "16 Januari 2027",
+      "waktu": "09.00 WIB",
+      "tempat": "Rumah Mempelai Wanita",
+      "alamat": "Ds. Jawong, 09/03, Kembangarum, Mranggen",
+      "googleMapsUrl": "https://goo.gl/maps/SLjQBNp2JqQfReTQ6?g_st=aw",
       "calendar": {
-        "title": "Akad Nikah Liahne & Fernando",
-        "description": "Akad Nikah Liahne & Fernando di Pendopo Agung Royal Ambarrukmo Yogyakarta",
-        "location": "Pendopo Agung Royal Ambarrukmo Yogyakarta",
-        "startDate": "20261024T010000Z",
-        "endDate": "20261024T030000Z"
+        "title": "Akad Nikah Hida & Komang",
+        "description": "Akad Nikah Hida & Komang di Rumah Mempelai Wanita",
+        "location": "Rumah Mempelai Wanita, Ds. Jawong, 09/03, Kembangarum, Mranggen",
+        "startDate": "20270116T020000Z",
+        "endDate": "20270116T040000Z"
       }
     },
     "resepsi": {
       "judul": "Pahargyan Temanten / Resepsi",
-      "hari": "Sabtu Legi",
-      "tanggal": "24 Oktober 2026",
-      "waktu": "11.00 - 14.00 WIB",
-      "tempat": "Bale Mangunharjo, Royal Ambarrukmo",
-      "alamat": "Jl. Laksda Adisucipto No.81, Ambarukmo, Caturtunggal, Kec. Depok, Kabupaten Sleman, D.I. Yogyakarta",
-      "googleMapsUrl": "https://maps.google.com/?q=Pendopo+Agung+Royal+Ambarrukmo+Yogyakarta",
+      "hari": "Sabtu Pon",
+      "tanggal": "16 Januari 2027",
+      "waktu": "15.00-selesai",
+      "tempat": "Rumah Mempelai Wanita",
+      "alamat": "Ds. Jawong, 09/03, Kembangarum, Mranggen",
+      "googleMapsUrl": "https://goo.gl/maps/SLjQBNp2JqQfReTQ6?g_st=aw",
       "calendar": {
-        "title": "Resepsi Pernikahan Liahne & Fernando",
-        "description": "Resepsi Pernikahan Liahne & Fernando di Pendopo Agung Royal Ambarrukmo Yogyakarta",
-        "location": "Bale Mangunharjo, Royal Ambarrukmo Yogyakarta",
-        "startDate": "20261024T040000Z",
-        "endDate": "20261024T070000Z"
+        "title": "Resepsi Pernikahan Hida & Komang",
+        "description": "Resepsi Pernikahan Hida & Komang di Rumah Mempelai Wanita",
+        "location": "Rumah Mempelai Wanita, Ds. Jawong, 09/03, Kembangarum, Mranggen",
+        "startDate": "20270116T080000Z",
+        "endDate": "20270116T120000Z"
       }
     },
     "gmapsBarcode": {
       "tampilkan": true,
       "judul": "Pindai Barcode Google Maps",
       "keterangan": "Arahkan kodhak / kamera ponsel panjenengan kagem mbikak pituduh rute navigasi Google Maps tumuju sasana pahargyan.",
-      "url": "https://maps.google.com/?q=Pendopo+Agung+Royal+Ambarrukmo+Yogyakarta"
+      "url": "https://goo.gl/maps/SLjQBNp2JqQfReTQ6?g_st=aw"
     }
   },
-  "countdownTarget": "2026-10-24T08:00:00+07:00",
+  "countdownTarget": "2027-01-16T08:00:00+07:00",
   "kisah": [
     {
-      "tahun": "2021",
+      "tahun": "2023",
       "judul": "Pitepangan (Awal Perjumpaan)",
-      "deskripsi": "Garis takdir mempertemukan kami di sebuah simfoni gamelan Yogyakarta. Berawal dari tutur sapa sederhana, terajut rasa saling mengerti dan menghormati."
+      "deskripsi": "Berawal dari tutur sapa sederhana, terajut rasa saling mengerti dan menghormati."
     },
     {
-      "tahun": "2024",
+      "tahun": "2025",
       "judul": "Kidung Tresna (Mengikat Janji)",
       "deskripsi": "Setelah melangkah bersama melalui suka dan duka, kami meyakini bahwa langkah ini adalah panggilan jiwa untuk saling membersamai hingga akhir hayat."
     },
     {
-      "tahun": "2026",
+      "tahun": "2027",
       "judul": "Dhaup Suci (Menuju Mahligai)",
       "deskripsi": "Dengan restu kedua orang tua dan leluhur, kami menyatukan dua keluarga besar dalam ikatan suci pernikahan berbalut adat Jawa adiluhung."
     }
@@ -88,49 +88,44 @@
     {
       "url": "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80",
       "caption": "Kidung Tresna ing Ngayogyakarta",
-      "alt": "Foto Busana Adat Jawa Pengantin"
+      "alt": "Kidung Tresna ing Ngayogyakarta"
     },
     {
       "url": "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80",
       "caption": "Manunggaling Roso lan Jiwo",
-      "alt": "Momen Kasih Pasangan Mempelai"
+      "alt": "Manunggaling Roso lan Jiwo"
     },
     {
       "url": "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80",
       "caption": "Langkah Menuju Mahligai Suci",
-      "alt": "Janji Pernikahan"
+      "alt": "Langkah Menuju Mahligai Suci"
     },
     {
       "url": "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80",
       "caption": "Sembah Sujud Doa Pangestu",
-      "alt": "Doa Restu Keluarga"
+      "alt": "Sembah Sujud Doa Pangestu"
     }
   ],
   "hadiah": {
     "deskripsi": "Doa restu panjenengan sedaya sampun dados berkah ingkang tanpa upami tumrap kula sakaliyan. Nanging menawi panjenengan kersa paring tanda katresnan, saged lumantar rekening ing ngandhap menika:",
     "rekening": [
       {
-        "bank": "BCA",
-        "nomor": "8935129481",
-        "atasNama": "Fernando Pratama",
-        "logo": "BCA"
-      },
-      {
-        "bank": "Bank Mandiri",
-        "nomor": "1370019284712",
-        "atasNama": "Liahne Kusumaningrum",
-        "logo": "MANDIRI"
+        "bank": "BRI",
+        "nomor": "304501007274502",
+        "atasNama": "Hidayatush Sholihah",
+        "logo": "BRI"
       }
     ],
     "kadoFisik": {
-      "penerima": "Liahne & Fernando",
-      "telepon": "0812-3456-7890",
-      "alamat": "Komplek Bale Asri No. 12, Caturtunggal, Depok, Sleman, D.I. Yogyakarta 55281"
+      "penerima": "Hida&Komang",
+      "telepon": "083334660392",
+      "alamat": "Da. Jawong, 09/03, Kembangarum, Mranggen"
     }
   },
   "rsvp": {
-    "whatsappNumber": "6281234567890",
-    "defaultPesan": "Sugeng rawuh! Kula ngaturaken matur nuwun inggil serat sedhahanipun."
+    "whatsappNumber": "6283334660392",
+    "defaultPesan": "Sugeng rawuh! Kula ngaturaken matur nuwun inggil serat sedhahanipun.",
+    "googleSheetUrl": ""
   },
   "audio": {
     "judul": "Wonderful Gamelan Indonesia Traditional Music",

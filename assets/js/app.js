@@ -134,7 +134,8 @@ const DEFAULT_FALLBACK_CONFIG = {
   },
   rsvp: {
     whatsappNumber: "6281234567890",
-    defaultPesan: "Sugeng rawuh! Kula ngaturaken matur nuwun inggil serat sedhahanipun."
+    defaultPesan: "Sugeng rawuh! Kula ngaturaken matur nuwun inggil serat sedhahanipun.",
+    googleSheetUrl: ""
   },
   audio: {
     judul: "Wonderful Gamelan Indonesia Traditional Music",

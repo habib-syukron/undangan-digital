@@ -534,6 +534,20 @@
             <label class="adm-label">Pesan Pembuka Default</label>
             <textarea id="cfgRsvpPesan" class="adm-textarea" placeholder="Sugeng rawuh! Kula ngaturaken matur nuwun inggil serat sedhahanipun."></textarea>
           </div>
+
+          <div class="adm-form-group" style="margin-top: 20px; border-top: 1px dashed rgba(184,142,75,0.25); padding-top: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <label class="adm-label" style="margin-bottom: 0;">URL Google Sheets Web App (Database Online)</label>
+              <span class="adm-badge" style="background: rgba(37,211,102,0.15); color: #25D366; font-size: 0.72rem; padding: 2px 8px; border-radius: 4px; border: 1px solid rgba(37,211,102,0.3);">Permanen &amp; Gratis</span>
+            </div>
+            <input type="url" id="cfgRsvpGsheetUrl" class="adm-input" placeholder="https://script.google.com/macros/s/.../exec">
+            <div class="adm-help" style="margin-top: 6px; line-height: 1.5;">
+              Hubungkan formulir RSVP &amp; Buku Rawuh ke Google Sheets agar ucapan doa &amp; konfirmasi dari seluruh tamu tersimpan permanen dan tampil untuk semua pengunjung.
+            </div>
+            <button type="button" id="btnOpenGsheetGuide" class="adm-btn adm-btn-outline adm-btn-sm" style="margin-top: 10px; width: 100%;">
+              📋 Panduan Setup &amp; Salin Kode Google Apps Script
+            </button>
+          </div>
         </div>
 
         <!-- Audio -->
@@ -791,7 +805,8 @@
             Statistik Kehadiran &amp; Buku Rawuh (Data Asli)
           </h2>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-            <button type="button" id="btnRefreshBukuRawuh" class="adm-btn adm-btn-outline adm-btn-sm">🔄 Muat Ulang</button>
+            <button type="button" id="btnRefreshBukuRawuh" class="adm-btn adm-btn-outline adm-btn-sm" title="Muat ulang data dari memori browser">🔄 Muat Ulang</button>
+            <button type="button" id="btnSyncGsheet" class="adm-btn adm-btn-outline adm-btn-sm" title="Tarik data ucapan & kehadiran terbaru dari Google Sheets">📥 Tarik Google Sheets</button>
             <button type="button" id="btnExportBukuRawuhCsv" class="adm-btn adm-btn-primary adm-btn-sm">📊 Unduh CSV (Excel)</button>
             <button type="button" id="btnClearBukuRawuh" class="adm-btn adm-btn-danger adm-btn-sm">🗑️ Reset Buku</button>
           </div>
@@ -878,6 +893,49 @@
       <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px;">
         <button type="button" id="btnCancelChangePass" class="adm-btn adm-btn-outline">Batal</button>
         <button type="button" id="btnSaveNewPass" class="adm-btn adm-btn-primary">Simpan Sandi Baru</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       MODAL: PANDUAN GOOGLE SHEETS APPS SCRIPT
+       ======================================================================== -->
+  <div id="modalGsheetGuide" class="adm-modal" style="display: none;">
+    <div class="adm-modal-backdrop" id="modalGsheetBackdrop"></div>
+    <div class="adm-modal-content" style="max-width: 640px; max-height: 90vh; overflow-y: auto;">
+      <div class="admin-card-header" style="margin-bottom: 16px;">
+        <h2 class="admin-card-title">
+          <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+          Panduan Setup Google Sheets (Gratis &amp; Permanen)
+        </h2>
+      </div>
+
+      <div style="font-size: 0.85rem; line-height: 1.6; color: var(--admin-text-main);">
+        <p style="margin-bottom: 12px;">Ikuti langkah mudah ini agar setiap tamu yang mengisi RSVP langsung tersimpan rapi ke Google Spreadsheet Anda:</p>
+        
+        <ol style="padding-left: 20px; margin-bottom: 16px; display: flex; flex-direction: column; gap: 8px;">
+          <li>Buka <a href="https://sheets.new" target="_blank" rel="noopener" style="color: var(--color-gold-light); text-decoration: underline; font-weight: 600;">sheets.new</a> untuk membuat spreadsheet Google baru.</li>
+          <li>Beri nama spreadsheet, contohnya: <em>Buku Rawuh Undangan</em>.</li>
+          <li>Klik menu <strong>Ekstensi (Extensions)</strong> &rarr; <strong>Apps Script</strong>.</li>
+          <li>Hapus seluruh kode bawaan, lalu salin dan tempelkan kode di bawah ini.</li>
+          <li>Klik ikon <strong>Simpan (Save / Disket)</strong>.</li>
+          <li>Klik tombol biru <strong>Terapkan (Deploy)</strong> di kanan atas &rarr; <strong>Penerapan baru (New deployment)</strong>.</li>
+          <li>Klik ikon roda gigi &rarr; pilih <strong>Aplikasi Web (Web app)</strong>.</li>
+          <li>Pada <em>Yang memiliki akses (Who has access)</em>, pilih: <strong style="color: #25D366;">Siapa saja (Anyone)</strong> *(Sangat penting)*.</li>
+          <li>Klik <strong>Terapkan</strong> &rarr; Berikan izin akun Google Anda (Authorize access).</li>
+          <li>Salin <strong>URL Aplikasi Web (Web app URL)</strong> yang berakhiran <code>/exec</code>, lalu tempelkan di kolom input <strong>URL Google Sheets</strong> di panel admin ini!</li>
+        </ol>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+          <span style="font-weight: 600; color: var(--color-gold-prada);">Kode Google Apps Script:</span>
+          <button type="button" id="btnCopyGsheetScript" class="adm-btn adm-btn-primary adm-btn-sm">📋 Salin Kode Script</button>
+        </div>
+
+        <textarea id="gsheetScriptCode" class="adm-textarea" rows="10" readonly style="font-family: monospace; font-size: 0.78rem; background: rgba(0,0,0,0.5);"></textarea>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; margin-top: 16px;">
+        <button type="button" id="btnCloseGsheetGuide" class="adm-btn adm-btn-outline">Tutup</button>
       </div>
     </div>
   </div>

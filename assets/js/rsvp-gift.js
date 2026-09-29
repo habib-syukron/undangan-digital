@@ -103,7 +103,11 @@ class RsvpGiftManager {
       this.showToast('Matur nuwun, konfirmasi panjenengan sampun katampi!');
 
       // 2. Open WhatsApp if phone configured
-      const waNumber = this.config.rsvp?.whatsappNumber || '6281234567890';
+      let rawWa = String(this.config.rsvp?.whatsappNumber || '6281234567890').replace(/[^0-9]/g, '');
+      if (rawWa.startsWith('0')) {
+        rawWa = '62' + rawWa.slice(1);
+      }
+      const waNumber = rawWa;
       const waMessage = `*KONFIRMASI KEHADIRAN (RSVP)*%0A%0A` +
         `*Nama:* ${encodeURIComponent(nama)}%0A` +
         `*Status:* ${encodeURIComponent(statusMap[kehadiran] || kehadiran)}%0A` +
@@ -125,7 +129,7 @@ class RsvpGiftManager {
     });
   }
 
-  initWishesStream() {
+  initWishesStream(skipRemoteFetch = false) {
     this.wishesStreamEl = document.getElementById('wishesStream');
     if (!this.wishesStreamEl) return;
 
@@ -154,6 +158,48 @@ class RsvpGiftManager {
     realWishes.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
 
     this.renderWishes(realWishes);
+
+    // Fetch live permanent data from Google Sheets if configured
+    const gsheetUrl = (this.config.rsvp?.googleSheetUrl || '').trim();
+    if (gsheetUrl && !skipRemoteFetch) {
+      this.fetchFromGoogleSheet(gsheetUrl);
+    }
+  }
+
+  fetchFromGoogleSheet(url) {
+    fetch(url)
+      .then(res => res.json())
+      .then(result => {
+        if (result && result.status === 'success' && Array.isArray(result.data)) {
+          // Merge remote wishes with any local wishes
+          let stored = [];
+          try {
+            stored = JSON.parse(localStorage.getItem('wayang_invitation_wishes') || '[]');
+          } catch (e) {
+            stored = [];
+          }
+
+          const combinedMap = new Map();
+          [...result.data, ...stored].forEach(item => {
+            const key = `${item.nama}_${item.waktu}_${item.pesan}`;
+            if (!combinedMap.has(key)) {
+              combinedMap.set(key, item);
+            }
+          });
+
+          const merged = Array.from(combinedMap.values());
+          merged.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+          try {
+            localStorage.setItem('wayang_invitation_wishes', JSON.stringify(merged));
+          } catch (e) {}
+
+          this.renderWishes(merged);
+        }
+      })
+      .catch(err => {
+        console.warn('Google Sheets live fetch notice:', err);
+      });
   }
 
   addWish(newWish) {
@@ -169,7 +215,43 @@ class RsvpGiftManager {
       localStorage.setItem('wayang_invitation_wishes', JSON.stringify(stored));
     } catch (e) {}
 
-    this.initWishesStream();
+    this.initWishesStream(true);
+
+    // Kirim data secara online permanen ke Google Sheets jika URL telah dipasang
+    const gsheetUrl = (this.config.rsvp?.googleSheetUrl || '').trim();
+    if (gsheetUrl) {
+      this.sendToGoogleSheet(gsheetUrl, newWish);
+    }
+  }
+
+  sendToGoogleSheet(url, newWish) {
+    try {
+      fetch(url, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        },
+        body: JSON.stringify({
+          action: 'add_rsvp',
+          timestamp: newWish.timestamp,
+          waktu: newWish.waktu,
+          nama: newWish.nama,
+          kehadiran: newWish.kehadiran,
+          jumlah: newWish.jumlah,
+          pesan: newWish.pesan
+        })
+      })
+      .then(() => {
+        // Re-fetch after short delay to refresh all responses from server
+        setTimeout(() => {
+          this.fetchFromGoogleSheet(url);
+        }, 2000);
+      })
+      .catch(err => console.warn('GSheet POST error:', err));
+    } catch (e) {
+      console.warn('GSheet submit error:', e);
+    }
   }
 
   renderWishes(wishes) {
